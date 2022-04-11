@@ -46,9 +46,9 @@
 ## Etapes du projet :
 
 ### Fichier ".env" : (Dépôt GITHUB : )
-1. Configuration du MAILER_DSN (Etat : )
-1. Configuration du DATABASE_URL (Etat : )
-1. Création de la base de donnée (Etat : )
+1. Configuration du MAILER_DSN (Etat : Fait)
+1. Configuration du DATABASE_URL (Etat : Fait)
+1. Création de la base de donnée (Etat : Fait)
 
 ### Fichier "base.html.twig" et "base_dashboard.html.twig" : (Dépôt GITHUB : )
 1. Modification du fichier "**base.html.twig**" (Etat : )
