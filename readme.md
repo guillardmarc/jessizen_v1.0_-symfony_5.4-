@@ -74,14 +74,16 @@
     | pictureProfilName | string (255) | nullable |
     | birthday | date | nullable |
     | moreInfo | text | nullable |
+    | websiteSettlementAccept | boolean | non nul |
 1. Modification de l'entité : (Etat : Fait)
     * Ajout des constante "**roles**"
     * Attribution par défaut de la constante "**roles user**" par défaut
 
-### Bundle "Register Form" : (Dépôt GITHUB : )
+### Bundle "Register Form" : (Dépôt GITHUB : Fait)
 1. Installation du bundle (Etat : Fait)
 1. Configuration du bundle (Etat : Fait)
+1. Modification du fichier "RegistrationFormType.php" (Etat : Fait)
 
 ### Bundle "Authentificator" : (Dépôt GITHUB : )
-1. Installation du bundle (Etat : )
-1. Configuration du bundle (Etat : )
+1. Installation du bundle (Etat : Fait)
+1. Configuration du bundle (Etat : Fait)

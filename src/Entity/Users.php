@@ -87,6 +87,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $websiteSettlementAccept;
+
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
@@ -285,6 +290,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getWebsiteSettlementAccept(): ?bool
+    {
+        return $this->websiteSettlementAccept;
+    }
+
+    public function setWebsiteSettlementAccept(bool $websiteSettlementAccept): self
+    {
+        $this->websiteSettlementAccept = $websiteSettlementAccept;
 
         return $this;
     }
