@@ -54,16 +54,16 @@
 1. Modification du fichier "**base.html.twig**" (Etat : Fait)
 1. Création du fichier "**base_dashboard.html.twig**" via le fichier "**base.html.twig**" (Etat : Fait)
 
-### Controlleur "BasicPages" : (Dépôt GITHUB : )
+### Controlleur "BasicPages" : (Dépôt GITHUB : Fait)
 1. Création du controlleur (Etat : Fait)
 1. Modification du controlleur (Etat : Fait)
 
 ### Entité "Users" : (Dépôt GITHUB : )
-1. Crétion de l'entité avec les champs suivant : (Etat : )
+1. Crétion de l'entité avec les champs suivant : (Etat : Fait)
     * email
     * roles
     * password
-1. Ajout des champs  suivant : (Etat : )
+1. Ajout des champs  suivant : (Etat : Fait)
     | Nom du champs | Type de champs | Complément d'informations |
     | :------------ | :------------- | :------------------------ |
     | createdAt | datetime | non nul |
@@ -74,6 +74,6 @@
     | pictureProfilName | string (255) | nullable |
     | birthday | date | nullable |
     | moreInfo | text | nullable |
-1. Modification de l'entité : (Etat : )
+1. Modification de l'entité : (Etat : Fait)
     * Ajout des constante "**roles**"
     * Attribution par défaut de la constante "**roles user**" par défaut
