@@ -17,4 +17,7 @@
         <li>Your template at <code><a href="{{ 'C:/Users/GUILLARD Marc/Desktop/projet Web/jessizen_v1.0_(symfony_5.4)/templates/basic_pages/index.html.twig'|file_link(0) }}">templates/basic_pages/index.html.twig</a></code></li>
     </ul>
 </div>
+{% for flash_success in app.flashes('success') %}
+    <div class="alert alert-success" role="alert">{{ flash_success }}</div>
+{% endfor %}
 {% endblock %}

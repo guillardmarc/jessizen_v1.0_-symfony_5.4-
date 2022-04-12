@@ -58,7 +58,7 @@
 1. Création du controlleur (Etat : Fait)
 1. Modification du controlleur (Etat : Fait)
 
-### Entité "Users" : (Dépôt GITHUB : )
+### Entité "Users" : (Dépôt GITHUB : Fait)
 1. Crétion de l'entité avec les champs suivant : (Etat : Fait)
     * email
     * roles
@@ -77,3 +77,11 @@
 1. Modification de l'entité : (Etat : Fait)
     * Ajout des constante "**roles**"
     * Attribution par défaut de la constante "**roles user**" par défaut
+
+### Bundle "Register Form" : (Dépôt GITHUB : )
+1. Installation du bundle (Etat : Fait)
+1. Configuration du bundle (Etat : Fait)
+
+### Bundle "Authentificator" : (Dépôt GITHUB : )
+1. Installation du bundle (Etat : )
+1. Configuration du bundle (Etat : )
