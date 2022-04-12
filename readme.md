@@ -50,13 +50,13 @@
 1. Configuration du DATABASE_URL (Etat : Fait)
 1. Création de la base de donnée (Etat : Fait)
 
-### Fichier "base.html.twig" et "base_dashboard.html.twig" : (Dépôt GITHUB : )
+### Fichier "base.html.twig" et "base_dashboard.html.twig" : (Dépôt GITHUB : Fait)
 1. Modification du fichier "**base.html.twig**" (Etat : Fait)
 1. Création du fichier "**base_dashboard.html.twig**" via le fichier "**base.html.twig**" (Etat : Fait)
 
 ### Controlleur "BasicPages" : (Dépôt GITHUB : )
-1. Création du controlleur (Etat : )
-1. Modification du controlleur (Etat : )
+1. Création du controlleur (Etat : Fait)
+1. Modification du controlleur (Etat : Fait)
 
 ### Entité "Users" : (Dépôt GITHUB : )
 1. Crétion de l'entité avec les champs suivant : (Etat : )
