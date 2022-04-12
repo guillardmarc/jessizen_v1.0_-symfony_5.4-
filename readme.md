@@ -84,6 +84,10 @@
 1. Configuration du bundle (Etat : Fait)
 1. Modification du fichier "RegistrationFormType.php" (Etat : Fait)
 
-### Bundle "Authentificator" : (Dépôt GITHUB : )
+### Bundle "Authentificator" : (Dépôt GITHUB : Fait)
+1. Installation du bundle (Etat : Fait)
+1. Configuration du bundle (Etat : Fait)
+
+### Bundle "Reset password" : (Dépot GITHUB : )
 1. Installation du bundle (Etat : Fait)
 1. Configuration du bundle (Etat : Fait)
