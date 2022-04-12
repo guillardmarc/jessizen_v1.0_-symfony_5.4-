@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -92,9 +94,63 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $websiteSettlementAccept;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UsersLinks::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $usersLinks;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Websites::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $websitesAuthor;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Websites::class, mappedBy="developper")
+     */
+    private $websitesDevelopper;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Websites::class, mappedBy="owner")
+     */
+    private $websitesOwner;
+
+    /**
+     * @ORM\OneToMany(targetEntity=WebsitesUpdates::class, mappedBy="author")
+     */
+    private $websitesUpdatesAuthor;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Categories::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $categoriesAuthor;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Articles::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $articlesAuthor;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Articles::class, mappedBy="favories")
+     */
+    private $articlesFavories;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ArticlesComments::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $articlesCommentsAuthors;
+
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
+        $this->usersLinks = new ArrayCollection();
+        $this->websitesAuthor = new ArrayCollection();
+        $this->websitesDevelopper = new ArrayCollection();
+        $this->websitesOwner = new ArrayCollection();
+        $this->websitesUpdatesAuthor = new ArrayCollection();
+        $this->categoriesAuthor = new ArrayCollection();
+        $this->articlesAuthor = new ArrayCollection();
+        $this->articlesFavories = new ArrayCollection();
+        $this->articlesCommentsAuthors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -302,6 +358,273 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setWebsiteSettlementAccept(bool $websiteSettlementAccept): self
     {
         $this->websiteSettlementAccept = $websiteSettlementAccept;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UsersLinks>
+     */
+    public function getUsersLinks(): Collection
+    {
+        return $this->usersLinks;
+    }
+
+    public function addUsersLink(UsersLinks $usersLink): self
+    {
+        if (!$this->usersLinks->contains($usersLink)) {
+            $this->usersLinks[] = $usersLink;
+            $usersLink->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersLink(UsersLinks $usersLink): self
+    {
+        if ($this->usersLinks->removeElement($usersLink)) {
+            // set the owning side to null (unless already changed)
+            if ($usersLink->getUser() === $this) {
+                $usersLink->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Websites>
+     */
+    public function getWebsitesAuthor(): Collection
+    {
+        return $this->websitesAuthor;
+    }
+
+    public function addWebsitesAuthor(Websites $websitesAuthor): self
+    {
+        if (!$this->websitesAuthor->contains($websitesAuthor)) {
+            $this->websitesAuthor[] = $websitesAuthor;
+            $websitesAuthor->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWebsitesAuthor(Websites $websitesAuthor): self
+    {
+        if ($this->websitesAuthor->removeElement($websitesAuthor)) {
+            // set the owning side to null (unless already changed)
+            if ($websitesAuthor->getAuthor() === $this) {
+                $websitesAuthor->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Websites>
+     */
+    public function getWebsitesDevelopper(): Collection
+    {
+        return $this->websitesDevelopper;
+    }
+
+    public function addWebsitesDevelopper(Websites $websitesDevelopper): self
+    {
+        if (!$this->websitesDevelopper->contains($websitesDevelopper)) {
+            $this->websitesDevelopper[] = $websitesDevelopper;
+            $websitesDevelopper->setDevelopper($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWebsitesDevelopper(Websites $websitesDevelopper): self
+    {
+        if ($this->websitesDevelopper->removeElement($websitesDevelopper)) {
+            // set the owning side to null (unless already changed)
+            if ($websitesDevelopper->getDevelopper() === $this) {
+                $websitesDevelopper->setDevelopper(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Websites>
+     */
+    public function getWebsitesOwner(): Collection
+    {
+        return $this->websitesOwner;
+    }
+
+    public function addWebsitesOwner(Websites $websitesOwner): self
+    {
+        if (!$this->websitesOwner->contains($websitesOwner)) {
+            $this->websitesOwner[] = $websitesOwner;
+            $websitesOwner->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWebsitesOwner(Websites $websitesOwner): self
+    {
+        if ($this->websitesOwner->removeElement($websitesOwner)) {
+            // set the owning side to null (unless already changed)
+            if ($websitesOwner->getOwner() === $this) {
+                $websitesOwner->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, WebsitesUpdates>
+     */
+    public function getWebsitesUpdatesAuthor(): Collection
+    {
+        return $this->websitesUpdatesAuthor;
+    }
+
+    public function addWebsitesUpdatesAuthor(WebsitesUpdates $websitesUpdatesAuthor): self
+    {
+        if (!$this->websitesUpdatesAuthor->contains($websitesUpdatesAuthor)) {
+            $this->websitesUpdatesAuthor[] = $websitesUpdatesAuthor;
+            $websitesUpdatesAuthor->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWebsitesUpdatesAuthor(WebsitesUpdates $websitesUpdatesAuthor): self
+    {
+        if ($this->websitesUpdatesAuthor->removeElement($websitesUpdatesAuthor)) {
+            // set the owning side to null (unless already changed)
+            if ($websitesUpdatesAuthor->getAuthor() === $this) {
+                $websitesUpdatesAuthor->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Categories>
+     */
+    public function getCategoriesAuthor(): Collection
+    {
+        return $this->categoriesAuthor;
+    }
+
+    public function addCategoriesAuthor(Categories $categoriesAuthor): self
+    {
+        if (!$this->categoriesAuthor->contains($categoriesAuthor)) {
+            $this->categoriesAuthor[] = $categoriesAuthor;
+            $categoriesAuthor->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategoriesAuthor(Categories $categoriesAuthor): self
+    {
+        if ($this->categoriesAuthor->removeElement($categoriesAuthor)) {
+            // set the owning side to null (unless already changed)
+            if ($categoriesAuthor->getAuthor() === $this) {
+                $categoriesAuthor->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Articles>
+     */
+    public function getArticlesAuthor(): Collection
+    {
+        return $this->articlesAuthor;
+    }
+
+    public function addArticlesAuthor(Articles $articlesAuthor): self
+    {
+        if (!$this->articlesAuthor->contains($articlesAuthor)) {
+            $this->articlesAuthor[] = $articlesAuthor;
+            $articlesAuthor->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticlesAuthor(Articles $articlesAuthor): self
+    {
+        if ($this->articlesAuthor->removeElement($articlesAuthor)) {
+            // set the owning side to null (unless already changed)
+            if ($articlesAuthor->getAuthor() === $this) {
+                $articlesAuthor->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Articles>
+     */
+    public function getArticlesFavories(): Collection
+    {
+        return $this->articlesFavories;
+    }
+
+    public function addArticlesFavory(Articles $articlesFavory): self
+    {
+        if (!$this->articlesFavories->contains($articlesFavory)) {
+            $this->articlesFavories[] = $articlesFavory;
+            $articlesFavory->addFavory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticlesFavory(Articles $articlesFavory): self
+    {
+        if ($this->articlesFavories->removeElement($articlesFavory)) {
+            $articlesFavory->removeFavory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ArticlesComments>
+     */
+    public function getArticlesCommentsAuthors(): Collection
+    {
+        return $this->articlesCommentsAuthors;
+    }
+
+    public function addArticlesCommentsAuthor(ArticlesComments $articlesCommentsAuthor): self
+    {
+        if (!$this->articlesCommentsAuthors->contains($articlesCommentsAuthor)) {
+            $this->articlesCommentsAuthors[] = $articlesCommentsAuthor;
+            $articlesCommentsAuthor->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticlesCommentsAuthor(ArticlesComments $articlesCommentsAuthor): self
+    {
+        if ($this->articlesCommentsAuthors->removeElement($articlesCommentsAuthor)) {
+            // set the owning side to null (unless already changed)
+            if ($articlesCommentsAuthor->getAuthor() === $this) {
+                $articlesCommentsAuthor->setAuthor(null);
+            }
+        }
 
         return $this;
     }

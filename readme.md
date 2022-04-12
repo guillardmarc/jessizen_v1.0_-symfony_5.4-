@@ -88,6 +88,106 @@
 1. Installation du bundle (Etat : Fait)
 1. Configuration du bundle (Etat : Fait)
 
-### Bundle "Reset password" : (Dépot GITHUB : )
+### Bundle "Reset password" : (Dépôt GITHUB : Fait)
 1. Installation du bundle (Etat : Fait)
 1. Configuration du bundle (Etat : Fait)
+
+### Création des entitées : (Dépôt GITHUB : )
+1. Création de l'entitée "**UsersLinks**" avec les champs suivants (Etat : Fait )
+    | Nom du champs | Type de champs | Complément d'informations |
+    | :------------ | :------------- | :------------------------ |
+    | createdAt | datetime | non nul |
+    | type | string (255) | non nul |
+    | url | string (255) | non nul |
+    | | | |
+    | <ins>user</ins> | relation avec l'entité "**Users**" | ManyToOne |
+
+1. Création de l'entitée "**Websites**" avec les champs suivants (Etat : Fait)
+    | Nom du champs | Type de champs | Complément d'informations |
+    | :------------ | :------------- | :------------------------ |
+    | createdAt | datetime | non nul |
+    | modifiedAt | datetime | non nul |
+    | logoText | string (255) | non nul |
+    | logoPictureAlt | string (255) | nullable |
+    | logoPictureLink | string (255) | nullable |
+    | logoPictureName | string (255) | nullable |
+    | copyright | string (255) | non nul |
+    | regulation | text | non nul |
+    | version | string (3) | non nul |
+    | presentationText | text | non nul |
+    | presentationPictureAlt | string (255) | non nul |
+    | presentationPictureLink | string (255) | non nul |
+    | presentationPictureName | string (255) | non nul |
+    | publicationDate | date | nullable |
+    | | | |
+    | <ins>author</ins> | relation avec l'entité "**Users**" | ManyToOne |
+    | <ins>developer</ins> | relation avec l'entité "**Users**" | ManyToOne |
+    | <ins>owner</ins> | relation avec l'entité "**Users**" | ManyToOne |
+
+1. Création de l'entitée "**WebsitesUpdates**" avec les champs suivant (Etat : Fait)
+    | Nom du champs | Type de champs | Complément d'informations |
+    | :------------ | :------------- | :------------------------ |
+    | createdAt | datetime | non nul |
+    | modifiedAt | datetime | non nul |
+    | title | string (255) | non nul |
+    | date | date | non nul |
+    | moreInfo | text | nullable |
+    | underVersion | string (3) | nullable |
+    | | | |
+    | <ins>author</ins> | relation avec l'entité "**Users**" | ManyToOne |
+    | <ins>website</ins> | relation avec l'entité "**Websites** | ManyToOne |
+
+1. Création de l'entité "**Categories**" avec les champs suivant (Etat : Fait)
+    | Nom du champs | Type de champs | Complément d'informations |
+    | :------------ | :------------- | :------------------------ |
+    | createdAt | datetime | non nul |
+    | modifiedAt | datetime | non nul |
+    | title | string (255) | non nul |
+    | slug | string (255) | non nul |
+    | moreInfo | text | nullable |
+    | pictureAlt | string (255) | nullable |
+    | pictureLink | string (255) | nullable |
+    | pictureName | string (255) | nullable |
+    | | | |
+    | <ins>author</ins> | relation avec l'entité "**Users**" | ManyToOne |
+
+1. Entité **Articles** avec les champs (Etat: Fait)
+    | Nom du champs | Type de champs | Complément d'informations |
+    | :------------ | :------------- | :------------------------ |
+    | createdAt | datetime | non nul |
+    | modifiedAt | datetime | non nul |
+    | title | string (255) | non nul |
+    | slug | string (255) |non nul |
+    | content | text | non nul |
+    | pictureTopAlt | string (255) | non nul |
+    | pictureTopLink | string (255) | non nul |
+    | pictureTopName | string (255) | non nul |
+    | note | decimale (12.2) | nullable |
+    | voterNumber| decimale (10.00) | nullable |
+    | viewNumber | decimale (10,0) | nullable |
+    | isCommented | boolean | nullable |
+    | publicationDate | date | nullable |
+    | | |
+    | <ins>author</ins> | relation avec l'entité "**Users**" | ManyToOne |
+    | <ins>categories</ins> | relation avec l'entité "**Categories**" | ManyToMany |
+    | <ins>favories</ins> | relation avec l'entité "**Users**" | ManyToMany |
+
+1. Création de l'entité "**ArticlesPictures**" avec les champs suivant (Etat : Fait)
+    | Nom du champs | Type de champs | Complément d'informations |
+    | :------------ | :------------- | :------------------------ |
+    | createdAt | datetime | non nul |
+    | alt | string (255) | non nul |
+    | link | string (255) | non nul |
+    | name | string (255) | non nul |
+    | | | |
+    | <ins>article</ins> | relaton avec l'entité "**Articles**" | ManyToOne |
+
+1. Création de l'entité "**ArticlesComments**" avec les champs suivant (Etat : Fait)
+    | Nom du champs | Type de champs | Complément d'informations |
+    | :------------ | :------------- | :------------------------ |
+    | createdAt | datetime | non nul |
+    | modifiedAt | datetime | non nul |
+    | comment | text | non nul |
+    | | | |
+    | <ins>article</ins> | relation avec l'entité "**Articles**" | ManyToOne |
+    | <ins>author</ins> | relation avec l'entité "**Users**" | ManyToOne |
