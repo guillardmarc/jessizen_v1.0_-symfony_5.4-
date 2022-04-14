@@ -189,5 +189,15 @@
     | modifiedAt | datetime | non nul |
     | comment | text | non nul |
     | | | |
-    | <ins>article</ins> | relation avec l'entité "**Articles**" | ManyToOne |
+    | <ins>article</ins> | relation avec l'entité "**Articles**" | ManyToOne |+
     | <ins>author</ins> | relation avec l'entité "**Users**" | ManyToOne |
+
+### Bundle "Symfony Fixtures" : (Dépôt GITHUB : )
+1. Installation du bundle (Etat : Fait)
+1. Création des données de fixture (Etat : Fait)
+1. Ajout des données de fixture dans la base de données (Etat : Fait)
+
+### Création des "Services twig" : (Dépôt GITHUB : )
+1. Création du services twig "**ArticlesService.php**" (Etat : )
+1. Création du services twig "**CategoriesService.php**" (Etat : )
+1. Création du services twig "**WebsitesService.php** (Etat : )
