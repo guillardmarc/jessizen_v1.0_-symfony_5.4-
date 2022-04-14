@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Articles;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -73,4 +74,46 @@ class ArticlesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function lastFiveArticlesPublied()
+    {
+        $date = (new DateTime())->format('Y-m-d');
+
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.publicationDate <= :date')
+            ->setParameter('date', $date)
+            ->orderBy('a.publicationDate', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function threeBestRatedArticlesPublied()
+    {
+        $date = (new DateTime())->format('Y-m-d');
+
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.publicationDate <= :date')
+            ->setParameter('date', $date)
+            ->orderBy('a.note', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function fiveMostViewedArticlesPublied()
+    {
+        $date = (new DateTime())->format('Y-m-d');
+
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.publicationDate <= :date')
+            ->setParameter('date', $date)
+            ->orderBy('a.viewNumber', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
