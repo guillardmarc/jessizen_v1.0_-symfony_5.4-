@@ -3,8 +3,8 @@ twig:
 
     globals:
         articles: '@App\TwigExtension\ArticlesExtension'
-        categories: '@App\TwigExtension\CategoriesExtension'
-        website: '@App\TwigExtension\WebsitesExtension'
+        categories: '@App\TwigServices\CategoriesExtension'
+        website: '@App\TwigServices\WebsitesExtension'
 
 when@test:
     twig:

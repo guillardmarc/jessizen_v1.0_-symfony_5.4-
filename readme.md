@@ -192,12 +192,16 @@
     | <ins>article</ins> | relation avec l'entité "**Articles**" | ManyToOne |+
     | <ins>author</ins> | relation avec l'entité "**Users**" | ManyToOne |
 
-### Bundle "Symfony Fixtures" : (Dépôt GITHUB : )
+### Bundle "Symfony Fixtures" : (Dépôt GITHUB : Faite)
 1. Installation du bundle (Etat : Fait)
 1. Création des données de fixture (Etat : Fait)
 1. Ajout des données de fixture dans la base de données (Etat : Fait)
 
-### Création des "Extension twig" : (Dépôt GITHUB : )
+### Création des "Extension twig" : (Dépôt GITHUB : Faite)
 1. Création du services twig "**ArticlesExtension.php**" (Etat : Fait)
 1. Création du services twig "**CategoriesExtension.php**" (Etat : Fait)
 1. Création du services twig "**WebsitesExtension.php** (Etat : Fait)
+
+### Bundle "Webpack Encors" : (Dépôt GITHUB : )
+1. Installation du bundle (Etat : Fait)
+1. Configuration du bundle (Etat : Fait)

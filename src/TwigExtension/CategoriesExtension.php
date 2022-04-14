@@ -1,6 +1,6 @@
 <?php
 
-namespace App\TwigExtention;
+namespace App\TwigExtension;
 
 use App\Entity\Categories;
 use Doctrine\ORM\EntityManagerInterface;

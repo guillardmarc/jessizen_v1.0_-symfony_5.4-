@@ -1,39 +1,41 @@
 <?php
 
-namespace App\TwigExtention;
+namespace App\TwigExtension;
 
 use App\Repository\ArticlesRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class ArticlesExtension extends AbstractExtension
 {
-    public function __construct( ArticlesRepository $articlesRepository)
+
+    public function __construct(EntityManagerInterface $em, ArticlesRepository $articlesRepository)
     {
-        $this->articleRepository = $articlesRepository;
+        $this->articlesRepository = $articlesRepository;
     }
 
-    public function getFunctions()
+    public function getFunctions():array
     {
         return[
-            new TwigFunction('articles',[$this,'getLastFiveArticlesPublied']),
-            new TwigFunction('articles',[$this,'getThreeBestRatedArticlesPublied']),
-            new TwigFunction('articles',[$this,'getFiveMostViewedArticlesPublied']),
+            new twigFunction('article',[$this,'getLastFiveArticles']),
+            new twigFunction('article',[$this,'getThreebestRatedArticles']),
+            new twigFunction('article',[$this,'getFiveMostViewedArticles'])
         ];
     }
 
-    public function getLastFiveArticlesPublied()
+    public function getLastFiveArticles()
     {
-        return $this->articleRepository->lastFiveArticlesPublied();
+        return $this->articlesRepository->lastFiveArticlesPublied();
     }
 
     public function getThreeBestRatedArticlesPublied()
     {
-        return $this->articleRepository->threeBestRatedArticlesPublied();
+        return $this->articlesRepository->threeBestRatedArticlesPublied();
     }
 
     public function getFiveMostViewedArticlesPublied()
     {
-        return $this->articleRepository->fiveMostViewedArticlesPublied();
+        return $this->articlesRepository->fiveMostViewedArticlesPublied();
     }
 }

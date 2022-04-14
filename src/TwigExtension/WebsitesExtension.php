@@ -1,6 +1,6 @@
 <?php
 
-namespace App\TwigExtention;
+namespace App\TwigExtension;
 
 use App\Repository\WebsitesRepository;
 use Twig\Extension\AbstractExtension;
