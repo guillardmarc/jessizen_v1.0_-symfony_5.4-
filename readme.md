@@ -215,6 +215,13 @@
 1. Création du fichier "**_var.scss**" contenant les variables scss (Etat : Fait)
 1. Import des fichiers précédents via le fichier "**app.scss**" (Etat : Fait)
 
-### Bundle "Bootstrap icon" : (Dépôt GITHUB : )
+### Bundle "Bootstrap icon" : (Dépôt GITHUB : Fait)
 1. Installation du bundle (Etat : Fait)
+1. Import du bundle via le fichier "**app.scss**" (Etat : Fait)
+
+### Bundle "Bootstrap Scss" : (Dépôt GITHUB : )
+1. Installation du bundle (Etat : Fait)
+1. Création des variable de couleur custom dans le fichier "**_var.scss**" (Etat : Fait)
+1. Configuration du bundle (Etat : Fait)
+1. Import du bundle via le fichier "**app.js**" (Etat : Fait)
 1. Import du bundle via le fichier "**app.scss**" (Etat : Fait)
