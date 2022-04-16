@@ -1,0 +1,16 @@
+{{ form_start(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.message) }}
+    <div class="d-flex ">
+        {{ form_row(form.agreeTerms) }}
+        <a class="ms-2 small" href="#" data-bs-toggle="modal" data-bs-target="#Regulation">
+            Consulter le règlement
+        </a>
+    </div>
+    <div class="d-grid col-lg-4 mx-auto">
+        <button class="btn btn-dark-custom rounded-pill">
+            Envoyer
+        </button>
+    </div>
+{{ form_end(form) }}

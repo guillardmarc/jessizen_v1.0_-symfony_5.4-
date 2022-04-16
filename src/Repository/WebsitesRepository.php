@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Websites;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -73,4 +74,30 @@ class WebsitesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function publicationByDate()
+    {
+        $date = (new DateTime())->format('Y-m-d');
+
+        $query = $this->createQueryBuilder('w')
+                      ->where('w.publicationDate <= :date')
+                      ->setParameter('date', $date)
+                      ->orderBy('w.publicationDate', 'DESC')
+                      ->setMaxResults(1)
+        ;
+        return $query->getQuery()->getResult();
+    }
+
+    public function publicationByDatesingle()
+    {
+        $date = (new DateTime())->format('Y-m-d');
+
+        $query = $this->createQueryBuilder('w')
+                      ->where('w.publicationDate <= :date')
+                      ->setParameter('date', $date)
+                      ->orderBy('w.publicationDate', 'DESC')
+                      ->setMaxResults(1)
+        ;
+        return $query->getQuery()->getSingleResult();
+    }
 }

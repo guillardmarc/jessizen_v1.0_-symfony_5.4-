@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}/ Formulaire de contact{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container-fluid">
+            <div class="vh-100 d-flex align-items-center justify-content-evenly">
+                <div class="bg-glass p-5 shadows-custom rounded-3">
+                    <h1 class="display-1 mb-3">
+                        Formulaire de contact
+                    </h1>
+                    <p>
+                        Complèter les champs suivants pour nous contacter. <span class="fw-bolder fst-italic">(Tous les champs sont obligatoires)</span>
+                    </p>
+                    {{ include('basic_pages/contact_us/_form.html.twig') }}
+                    <div class="d-grid col-lg-4 mx-auto mt-5">
+                        <a  class="btn" href="{{ path('app_home') }}">Retour vers l'accueil</a>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

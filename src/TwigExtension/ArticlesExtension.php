@@ -18,13 +18,13 @@ class ArticlesExtension extends AbstractExtension
     public function getFunctions():array
     {
         return[
-            new twigFunction('article',[$this,'getLastFiveArticles']),
-            new twigFunction('article',[$this,'getThreebestRatedArticles']),
-            new twigFunction('article',[$this,'getFiveMostViewedArticles'])
+            new twigFunction('article',[$this,'getLastFiveArticlesPublied']),
+            new twigFunction('article',[$this,'getThreebestRatedArticlesPublied']),
+            new twigFunction('article',[$this,'getFiveMostViewedArticlesPublied'])
         ];
     }
 
-    public function getLastFiveArticles()
+    public function getLastFiveArticlesPublied()
     {
         return $this->articlesRepository->lastFiveArticlesPublied();
     }

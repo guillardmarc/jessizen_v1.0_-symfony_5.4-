@@ -1,22 +1,272 @@
 <!DOCTYPE html>
-    <html lang="fr">
+<html lang="fr">
     <head>
         {# Meta tags #}
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {# title tag #}
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Stylesheets webpack block #}
+        {# Title tag #}
+        {% for website in website.getWebsite %}
+            <title>{{ website.logoText}}{% block title %}Welcome!{% endblock %}</title>
+        {% endfor %}
+        {# Link tags #}
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Stylesheets webpack tag #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-        {# Javascripts webpack block #}
+        {# Javascript webpack tag #}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {# Nav block #}
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-glass">
+            <div class="container-fluid">
+                {% for website in website.getWebsite %}
+                    <a class="navbar-brand" href="{{ path('app_home')}}">
+                        {% if website.logoPictureLink %}
+                            <img src="{{ asset(website.logoPictureLink) }}" alt="{{ website.logoPictureAlt }}"  class="img-circle-vh-10">
+                        {% else %}
+                            {{ website.logoText}}
+                        {% endif %}
+                    </a>
+                {% endfor %}
+                <button class="navbar-toggler rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="btn-opened">
+                        <i class="bi bi-list"></i>
+                    </span>
+                    <span class="btn-closed d-none">
+                        <i class="bi bi-x-lg text-danger"></i>
+                    </span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="{{ path('app_home')}}">
+                                <i class="bi bi-house-fill"></i>
+                            </a>
+                        </li>
+                        {% for category in categories.getCategories %}
+                            <li class="nav-item dropdown text-center">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ category.title }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            Les cinq derniers articles publiés
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            Les trois articles publiés les mieux notés
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            Les cinq articles publiés les plus vues
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                        Tous les articles de la categorie
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <hr class="my-4">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown text-center">
+                            <a class="btn btn-outline-dark-custom rounded-pill dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Espace personnel
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% if app.user %}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('app_user_dashboard') }}">
+                                            Ma page
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('app_logout') }}">
+                                            Déconnexion
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('app_register') }}">
+                                            Création du compte
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('app_login') }}">
+                                            Connexion
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    </ul>
+                    <hr class="my-4">
+                    <form class="d-flex">
+                        <div class="input-group">
+                            <input type="search" class="form-control" placeholder="Votre recherche">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        {# Header block #}
+        {% block header %}{% endblock %}
+        {# Main block #}
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+        {# Footer block #}
+        <footer class="bg-dark-custom text-light">
+            <div class="container">
+                <div class="d-flex flex-column flex-lg-row align-items-top justify-content-between">
+                    {% for website in website.getWebsite %}
+                        <h5 class="pt-3">
+                            {{ website.copyright }}
+                        </h5>
+                        <div class="pt-3">
+                            <h5>
+                                Informations site
+                            </h5>
+                            <ul>
+                                <li>
+                                    Propriètaire : {{ website.owner.pseudo }}
+                                    <ul class="d-flex ">
+                                        {# {% for userslink in website.developer.usersLinks %}
+                                            <li>
+                                                <a target="_blank" href="{{ userslink.httpLink}}">
+                                                    {% if userslink.typeLink == "website" %}
+                                                        <i class="bi bi-globe" title="Mon site web"></i>
+                                                    {% elseif userslink.typeLink == "facebook" %}
+                                                        <i class="bi bi-facebook" title="Mon facebook"></i>
+                                                    {% elseif userslink.typeLink == "youtube" %}
+                                                        <i class="bi bi-youtube" title="Mon youtube"></i>
+                                                    {% endif %}
+                                                </a>
+                                            </li>
+                                        {% endfor %} #}
+                                    </ul>
+                                </li>
+                                <li>
+                                    Développeur : {{ website.developper.pseudo }}
+                                    <ul class="d-flex ">
+                                        {# {% for userslink in website.developer.usersLinks %}
+                                            <li>
+                                                <a target="_blank" href="{{ userslink.httpLink}}">
+                                                    {% if userslink.typeLink == "website" %}
+                                                        <i class="bi bi-globe" title="Mon site web"></i>
+                                                    {% elseif userslink.typeLink == "facebook" %}
+                                                        <i class="bi bi-facebook" title="Mon facebook"></i>
+                                                    {% elseif userslink.typeLink == "youtube" %}
+                                                        <i class="bi bi-youtube" title="Mon youtube"></i>
+                                                    {% endif %}
+                                                </a>
+                                            </li>
+                                        {% endfor %} #}
+                                    </ul>
+                                </li>
+                                <li>
+                                    Version : {{ website.version }}
+                                    {% for update in website.websitesUpdates %}
+                                        {% if loop.last == true %}
+                                            . {{ update.underVersion }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </li>
+                                <li>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#Regulation">
+                                        Règlement
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#Website">
+                                        Plus d'info
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('app_contact_us') }}">
+                                        Nous contacter
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pt-3">
+                            <h5>
+                                Liens
+                            </h5>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('app_home') }}">
+                                        Accueil
+                                    </a>
+                                </li>
+                                {% for category in categories.getCategories %}
+                                    <li>
+                                        <a href="#">
+                                            {{ category.title }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul>
+                                {% if app.user %}
+                                    <li>
+                                        <a class="" href="{{ path('app_user_dashboard') }}">
+                                            Ma page
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="" href="{{ path('app_logout') }}">
+                                            Déconnexion
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a class="" href="{{ path('app_register') }}">
+                                            Création du compte
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="" href="{{ path('app_login') }}">
+                                            Connexion
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </footer>
+        {# Back to top link #}
+        <a href="#" title="Retour vers le haut de la page" class="btn btn-outline-secondary-custom back-to-top fs-1 d-none">
+            <i class="bi bi-arrow-bar-up"></i>
+        </a>
+        {# Modale block #}
+        {{ include('./basic_pages/_modal.html.twig') }}
+        {# Alert block #}
+        {{ include('./basic_pages/_alert.html.twig') }}
     </body>
 </html>

@@ -1,0 +1,82 @@
+{# Modale regulation website #}
+<div class="modal fade" id="Regulation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content bg-white">
+            <div class="modal-header text-white bg-dark-custom">
+                <h3 class="modal-title" id="exampleModalLabel">Règlement du site</h3>
+                <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% for website in website.getWebsite %}
+                    {{ website.regulation|raw }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{# Modale info website #}
+<div class="modal fade" id="Website" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content bg-white">
+            <div class="modal-header text-white bg-dark-custom">
+                <h3 class="modal-title" id="exampleModalLabel">Informations du site</h3>
+                <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% for website in website.getWebsite %}
+                    <h5>Version du site</h5>
+                    <p>
+                        {{ website.version }}
+                        {% for update in website.websitesUpdates %}
+                            {% if loop.last == true %}
+                                . {{ update.underVersion }}
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                    <hr class="m-4">
+                    <h5>Détail des mise à jour</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Date
+                                </th>
+                                <th scope="col">
+                                    Nom
+                                </th>
+                                <th scope="col">
+                                    Description
+                                </th>
+                                <th scope="col">
+                                    Sous version
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for update in website.websitesUpdates %}
+                                <tr>
+                                    <td>
+                                        {{ update.date? update.date|date('d/m/Y') : ''}}
+                                    </td>
+                                    <td>
+                                        {{ update.title }}
+                                    </td>
+                                    <td>
+                                        {% if update.moreInfo %}
+                                            {{ update.moreInfo }}
+                                        {% else %}
+                                            Pas de détail
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ update.underVersion }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

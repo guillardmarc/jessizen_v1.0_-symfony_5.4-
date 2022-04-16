@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-lg-8">
                         <h1 class="display-1">
-                            Email "Jessizen" de confimation de votre adresse email
+                            Email "Jessizen" d'avertissement
                         </h1>
                     </div>
                 </div>
@@ -25,14 +25,11 @@
         </header>
         <main>
             <p>
-               Bonjour, vous vener de créer un compte sur le site "Jessizen", pour valider votre adresse email, merci la confirmer en cliquant sur le bouton suivant.
+                Bonjour, un message de contact à été déposé sur le site.
             </p>
-            <p class="fw-bold text-danger">
-                Si vous n'avez pas créer de compte sur le site, ne faite rien. Le lien expira dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+            <p>
+                Le message déposé par "{{ name }}" / "{{ fromEmail }}" avec le message suivant "{{ message }}"
             </p>
-            <div class="d-grid gap-2 col-lg-6 mx-auto my-3">
-                <a class="btn btn-warning" href="{{ signedUrl }}">Cliquer ici confirmer votre email</a>.
-            </div>
         </main>
     </body>
 </html>

@@ -22,6 +22,6 @@ class WebsitesExtension extends AbstractExtension
 
     public function getWebsite()
     {
-        return $this->websiteRepo->publicationByDate();
+        return $this->websitesRepository->publicationByDate();
     }
 }

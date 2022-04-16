@@ -1,19 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}/Création de compte{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, { label: 'Password' }) }}
-        {{ form_row(registrationForm.websiteSettlementAccept) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <section>
+        <div class="container-fluid">
+            <div class="vh-100 d-flex align-items-center justify-content-evenly">
+                <div class="bg-glass p-5 shadows-custom rounded-3">
+                    <h1 class="display-1 mb-3">
+                        Création de compte
+                    </h1>
+                    <p>
+                        Pour créer votre compte, saisisser les informations demander dans les champs suivants. <span class="fw-bolder fst-italic">(Tous les champs sont obligatoires)</span>
+                    </p>
+                    {{ form_start(registrationForm) }}
+                        {{ form_row(registrationForm.email) }}
+                        {{ form_row(registrationForm.pseudo)}}
+                        {{ form_row(registrationForm.plainPassword, { label: 'Password'}) }}
+                        <div class="d-flex ">
+                            <div class="form-check form-switch">
+                            {{ form_row(registrationForm.websiteSettlementAccept) }}
+                            </div>
+                            <a class="ms-2 small" href="#" data-bs-toggle="modal" data-bs-target="#Regulation">
+                                Consulter le règlement
+                            </a>
+                        </div>
+                        <div class="d-grid col-lg-4 mx-auto mt-3">
+                            <button class="btn btn-dark-custom rounded-pill" type="submit">
+                                Création
+                            </button>
+                        </div>
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

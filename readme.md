@@ -219,9 +219,29 @@
 1. Installation du bundle (Etat : Fait)
 1. Import du bundle via le fichier "**app.scss**" (Etat : Fait)
 
-### Bundle "Bootstrap Scss" : (Dépôt GITHUB : )
+### Bundle "Bootstrap Scss" : (Dépôt GITHUB : Fait)
 1. Installation du bundle (Etat : Fait)
 1. Création des variable de couleur custom dans le fichier "**_var.scss**" (Etat : Fait)
 1. Configuration du bundle (Etat : Fait)
 1. Import du bundle via le fichier "**app.js**" (Etat : Fait)
 1. Import du bundle via le fichier "**app.scss**" (Etat : Fait)
+
+### Template de l'accueil du site : (Dépôt GITHUB : )
+1. Fichier "**base.html.twig**" (Etat : Fait)
+    1. Template block "nav"
+    1. Template block "header"
+    1. Template block "main"
+    1. Template block "footer"
+    1. Template block "modale
+    1. Template block "alert success"
+1. Fichier "**index.html.twig**" (Etat : Fait)
+    1. Template block "présentation"
+    1. Template block "les 5 dernier articles publier"
+    1. Template block "les 3 articles les mieux notés"
+    1. Template block "les 5 articles les plus vu"
+
+### Template de l'identification : (Dépot GITHUB : )
+1. Fichier "**login.html.twig**" (Etat : Fait)
+1. Partie "**registration**" (Etat : Fait)
+    1. Fichier "**confirmation_email.html.twig**"
+    1. Fichier "**register.html.twig**"
