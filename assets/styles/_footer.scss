@@ -1,0 +1,24 @@
+footer {
+    ul {
+        list-style-type: none;
+        li {
+            &::before{
+                content: "🌸";
+                padding-right: 8px;
+                color: $primary-custom;
+            }
+            a {
+                color: currentColor;
+                text-decoration: none;
+
+                &:hover {
+                    color: $primary-custom !important;
+                    text-decoration: underline;
+                }
+            }
+            ul li::before{
+                content: "";
+            }
+        }
+    }
+}

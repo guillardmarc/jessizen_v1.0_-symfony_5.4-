@@ -1,0 +1,117 @@
+// Body tag
+body {
+    @extend .bg-magic;
+}
+// Title loop
+@for $i from 1 to 8 {
+    // Title class
+    h#{$i}{
+        font-family: "DancingScript-Bold"; 
+        text-align: center;
+        @if $i <= 4 {
+            @extend .display-#{$i};
+        }
+    }
+}
+// Alert tag
+.alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+}
+// Back-to-top tag
+.back-to-top {
+    position: fixed;
+    top: 50%;
+    right: 1%;
+}
+// Background class
+.bg-glass {
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: inherit;
+    -webkit-backdrop-filter: blur(5px);
+}
+.bg-magic {
+    background-image: radial-gradient(circle at 40% 91%, rgba(251, 251, 251,0.04) 0%, rgba(251, 251, 251,0.04) 50%,rgba(229, 229, 229,0.04) 50%, rgba(229, 229, 229,0.04) 100%),radial-gradient(circle at 66% 97%, rgba(36, 36, 36,0.04) 0%, rgba(36, 36, 36,0.04) 50%,rgba(46, 46, 46,0.04) 50%, rgba(46, 46, 46,0.04) 100%),radial-gradient(circle at 86% 7%, rgba(40, 40, 40,0.04) 0%, rgba(40, 40, 40,0.04) 50%,rgba(200, 200, 200,0.04) 50%, rgba(200, 200, 200,0.04) 100%),radial-gradient(circle at 15% 16%, rgba(99, 99, 99,0.04) 0%, rgba(99, 99, 99,0.04) 50%,rgba(45, 45, 45,0.04) 50%, rgba(45, 45, 45,0.04) 100%),radial-gradient(circle at 75% 99%, rgba(243, 243, 243,0.04) 0%, rgba(243, 243, 243,0.04) 50%,rgba(37, 37, 37,0.04) 50%, rgba(37, 37, 37,0.04) 100%),linear-gradient(90deg,$light-custom,$dark-custom);
+    background-attachment: fixed;
+}
+// card-img border tags
+.card-img-border,
+.card-img-top-border,
+.card-img-bottom-border {
+    border-radius: inherit;
+    width: 100%;
+}
+// Form class
+.form-01 {
+    border-radius:30% 70% 70% 30% / 30% 30% 70% 70% ;
+}
+.form-02 {
+    border-radius:70% 30% 21% 79% / 70% 73% 27% 30% ;
+}
+// img fluid border tag
+.img-fluid-border {
+    border-radius: inherit;
+    max-width: 100%;
+    height: auto;
+}
+// Shadows custom class
+.shadows-custom {
+    box-shadow: 26px 26px 24px -16px rgba(0,0,0,0.69);
+    -webkit-box-shadow: 26px 26px 24px -16px rgba(0,0,0,0.69);
+    -moz-box-shadow: 26px 26px 24px -16px rgba(0,0,0,0.69);
+}
+// Loop height
+@each $height-name, $height-value in $height-array {
+    // height tag
+    .vh-#{$height-name} {
+        min-height: $height-value;
+    }
+    // Image fluid tags
+    .img-fluid-vh-#{$height-name} {
+        border-radius: inherit;
+        height: $height-value;
+        object-fit: cover;
+        object-position: center;
+        width: 100%;
+    }
+    // Image square tags
+    .img-square-vh-#{$height-name} {
+        border-radius: inherit;
+        height: $height-value;
+        object-fit: cover;
+        object-position: center;
+        width: $height-value;
+    }
+    // Image circle tags
+    .img-circle-vh-#{$height-name} {
+        border-radius: 50%;
+        height: $height-value;
+        object-fit: cover;
+        object-position: center;
+        width: $height-value;
+    }
+}
+
+@media (min-width: 576px){
+    @each $height-name, $height-value in $height-array {
+        // height tag
+        .vh-#{$height-name} {
+            min-height: none;
+
+        }
+    }
+}
+//  Image top tags
+
+
+.img-hover {
+    position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+}

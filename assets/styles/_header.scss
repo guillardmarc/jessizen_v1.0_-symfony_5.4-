@@ -1,0 +1,16 @@
+header {
+    p {
+        color: #fff !important;
+        font-size: 1.3rem;
+        font-family: "DancingScript-Bold";
+        mix-blend-mode: screen;
+        @extend .px-3;
+    }
+}
+
+@media (max-width: 576px) { 
+    header {
+        padding-bottom: 60px;
+        padding-top: 60px;
+    }
+}

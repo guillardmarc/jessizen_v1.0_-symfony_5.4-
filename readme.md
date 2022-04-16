@@ -202,6 +202,15 @@
 1. Création du services twig "**CategoriesExtension.php**" (Etat : Fait)
 1. Création du services twig "**WebsitesExtension.php** (Etat : Fait)
 
-### Bundle "Webpack Encors" : (Dépôt GITHUB : )
+### Bundle "Webpack Encors" : (Dépôt GITHUB : Fait)
 1. Installation du bundle (Etat : Fait)
 1. Configuration du bundle (Etat : Fait)
+
+### Fichier Scss : (Dépôt GITHUB : )
+1. Création du fichier "**_font.scss**" contenant les polices d'ecriture (Etat : Fait)
+1. Création du fichier "**_footer.scss**" contenant les classes scss de la balise "footer" (Etat : Fait)
+1. Création du fichier "**_global.scss**" contenant les classes scss globals (Etat : Fait)
+1. Création du fichier "**_main.scss**" contenant les classes scss de la balise "main" (Etat : Fait)
+1. Création du fichier "**_nav.scss**" contenant les classes scss de la balise "nav" (Etat : Fait)
+1. Création du fichier "**_var.scss**" contenant les variables scss (Etat : Fait)
+1. Import des fichiers précédents via le fichier "**app.scss**" (Etat : Fait)
