@@ -214,3 +214,7 @@
 1. Création du fichier "**_nav.scss**" contenant les classes scss de la balise "nav" (Etat : Fait)
 1. Création du fichier "**_var.scss**" contenant les variables scss (Etat : Fait)
 1. Import des fichiers précédents via le fichier "**app.scss**" (Etat : Fait)
+
+### Bundle "Bootstrap icon" : (Dépôt GITHUB : )
+1. Installation du bundle (Etat : Fait)
+1. Import du bundle via le fichier "**app.scss**" (Etat : Fait)
