@@ -245,3 +245,9 @@
 1. Partie "**registration**" (Etat : Fait)
     1. Fichier "**confirmation_email.html.twig**"
     1. Fichier "**register.html.twig**"
+
+### Template de reset password : (Dépôt GITHUB : )
+1. Fichier "**chek_email.html.twig**" (Etat : Fait)
+1. Fichier "**email.html.twig**" (Etat : Fait)
+1. Fichier "**request.html.twig**" (Etat : Fait)
+1. Fichier "**reset.html.twig**" (Etat :Fait)
