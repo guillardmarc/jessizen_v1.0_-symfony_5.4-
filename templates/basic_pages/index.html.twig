@@ -31,7 +31,7 @@
             <div class="row align-items-center justify-content-center">
                 {% for article in articles.getLastFiveArticlesPublied %}
                     <div class="col-lg-4 mb-3">
-                        <a class="card bg-dark-custom text-black form-01 shadows-custom" href="#" title="Cliquer ici pour consulter l'article">
+                        <a class="card bg-dark-custom text-black form-01 shadows-custom" href="{{ path('app_article_view', {'slug':article.slug})}}" title="Cliquer ici pour consulter l'article">
                             <img src="{{ asset(article.pictureTopLink) }}" class="img-square-vh-40" alt="{{ article.pictureTopAlt }}">
                             <div class="card-img-overlay bg-glass d-flex flex-column align-items-center justify-content-evenly">
                                 <h5 class="card-title text-center">
@@ -60,11 +60,11 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="d-grid col-lg-4 mx-auto mt-5">
+        {# <div class="d-grid col-lg-4 mx-auto mt-5">
             <a class="btn btn-dark-custom rounded-pill" href="#">
                 Consulter tous les derniers articles
             </a>
-        </div>
+        </div> #}
     </section>
     {# Three Best Rated Articles Publied block #}
     <section class="py-5">
@@ -76,7 +76,7 @@
             <div class="row align-items-center justify-content-center">
                 {% for article in articles.getThreeBestRatedArticlesPublied %}
                     <div class="col-lg-4 mb-3">
-                        <a class="card bg-dark-custom text-black form-01 shadows-custom" href="#" title="Cliquer ici pour consulter l'article">
+                        <a class="card bg-dark-custom text-black form-01 shadows-custom" href="{{ path('app_article_view', {'slug':article.slug})}}" title="Cliquer ici pour consulter l'article">
                             <img src="{{ asset(article.pictureTopLink) }}" class="img-square-vh-40" alt="{{ article.pictureTopAlt }}">
                             <div class="card-img-overlay bg-glass d-flex flex-column align-items-center justify-content-evenly">
                                 <h5 class="card-title text-center">
@@ -105,11 +105,11 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="d-grid col-lg-4 mx-auto mt-5">
+        {# <div class="d-grid col-lg-4 mx-auto mt-5">
             <a class="btn btn-dark-custom rounded-pill" href="#">
                 Consulter tous les articles les mieux notés
             </a>
-        </div>
+        </div> #}
     </section>
     {# Five most viewed articles apublied block #}
     <section class="py-5">
@@ -121,7 +121,7 @@
             <div class="row align-items-center justify-content-center">
                 {% for article in articles.getLastFiveArticlesPublied %}
                     <div class="col-lg-4 mb-3">
-                        <a class="card bg-dark-custom text-black form-01 shadows-custom" href="#" title="Cliquer ici pour consulter l'article">
+                        <a class="card bg-dark-custom text-black form-01 shadows-custom" href="{{ path('app_article_view', {'slug':article.slug})}}" title="Cliquer ici pour consulter l'article">
                             <img src="{{ asset(article.pictureTopLink) }}" class="img-square-vh-40" alt="{{ article.pictureTopAlt }}">
                             <div class="card-img-overlay bg-glass d-flex flex-column align-items-center justify-content-evenly">
                                 <h5 class="card-title text-center">
@@ -150,10 +150,10 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="d-grid col-lg-4 mx-auto mt-5">
+        {# <div class="d-grid col-lg-4 mx-auto mt-5">
             <a class="btn btn-dark-custom rounded-pill" href="#">
                 Consulter tous les articles les plus vues
             </a>
-        </div>
+        </div> #}
     </section>
 {% endblock %}

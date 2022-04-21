@@ -226,7 +226,7 @@
 1. Import du bundle via le fichier "**app.js**" (Etat : Fait)
 1. Import du bundle via le fichier "**app.scss**" (Etat : Fait)
 
-### Template de l'accueil du site : (Dépôt GITHUB : )
+### Template de l'accueil du site : (Dépôt GITHUB : Fait)
 1. Fichier "**base.html.twig**" (Etat : Fait)
     1. Template block "nav"
     1. Template block "header"
@@ -240,14 +240,32 @@
     1. Template block "les 3 articles les mieux notés"
     1. Template block "les 5 articles les plus vu"
 
-### Template de l'identification : (Dépot GITHUB : )
+### Template de l'identification : (Dépot GITHUB : Fait)
 1. Fichier "**login.html.twig**" (Etat : Fait)
 1. Partie "**registration**" (Etat : Fait)
     1. Fichier "**confirmation_email.html.twig**"
     1. Fichier "**register.html.twig**"
 
-### Template de reset password : (Dépôt GITHUB : )
+### Template de reset password : (Dépôt GITHUB : Fait)
 1. Fichier "**chek_email.html.twig**" (Etat : Fait)
 1. Fichier "**email.html.twig**" (Etat : Fait)
 1. Fichier "**request.html.twig**" (Etat : Fait)
 1. Fichier "**reset.html.twig**" (Etat :Fait)
+
+### Partie "User" (Dépôt GITHub : )
+1. Création du controller "**User**" 
+    1. Création de la fonction "**dashboard**" (Etat : Fait)
+    1. Création de la fonction "**deletUser**" (Etat : Fait)
+        1. Installation du bundle "**dompdf**" (Etat : Fait)
+    1. Création de la fonction "**editUser**" (Etat : Fait)
+    1. Création de la fonction "**deleteImage**" (Etat : Fait)
+1. Création du controller "**Category**"
+    1. Création de la fonction "**viewCategory**" (Etat : Fait)
+    1. Création de la fonction "**addFavoryCategory**" (Etat : Fait)
+    1. Création de la fonction "**deletFavoryCategory**" (Etat : Fait)
+    1. Création de la fonction "**listFavoriesCategory**" (Etat : Fait)
+1. Création du controller "**Article**"
+    1. Création de la fonction "**viewArticle**" (Etat : Fait)
+    1. Création de la fonction "**addFavoryArticle**" (Etat : Fait)
+    1. Création de la fonction "**deletFavoryArticle**" (Etat : Fait)
+    1. Création de la fonction "**listFavoriesArticles**" (Etat : Fait)

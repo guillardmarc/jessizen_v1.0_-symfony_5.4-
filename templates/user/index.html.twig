@@ -1,0 +1,196 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}/ Ma page{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row my-3 align-items-center justify-content-evenly">
+            <div class="col-lg-10 card shadows-custom mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        {% if app.user.pictureProfilLink == "" %}
+                            <img src="{{ asset("deco/profil/face_co.png")}}" class="img-fluid rounded-circle" alt="{{ app.user.pictureProfilAlt }}">
+                        {% else %}
+                            <img src="{{ asset(app.user.pictureProfilLink)}}" class="img-fluid rounded-circle" alt="{{ app.user.pictureProfilAlt }}">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            Pseudo
+                                        </th>
+                                        <td>
+                                            {{ app.user.pseudo }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            Email
+                                        </th>
+                                        <td>
+                                            {{ app.user.email }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            Mot de passe
+                                        </th>
+                                        <td>
+                                            Mot de passe non visible, car haché.
+                                            <a href="{{ path('app_forgot_password_request') }}">
+                                                Réinitialiser le mot de passe
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            Date de création du compte
+                                        </th>
+                                        <td>
+                                            {{ app.user.createdAt|date("d/m/Y H:m:s")}}
+                                        </td>
+                                    </tr>
+                                    {% if app.user.modifiedAt != app.user.createdAt %}
+                                        <tr>
+                                            <th scope="row">
+                                                Date de la dernière modification
+                                            </th>
+                                            <td>
+                                                {{ app.user.modifiedAt|date("d/m/Y H:m:s")}}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                    <tr>
+                                        <th scope="row">
+                                            Rôle(s)
+                                        </th>
+                                        <td>
+                                            <ul>
+                                                {% for role in app.user.roles %}
+                                                    <li>
+                                                        {% if role == "ROLE_USER" %}
+                                                            Role Lecteur
+                                                        {% elseif role == "ROLE_AUTHOR" %}
+                                                            Role Auteur
+                                                        {% elseif role == "ROLE_ADMIN" %}
+                                                            Role Administrateur
+                                                        {% endif %}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tbody>
+                            
+                            <tr>
+                                <th scope="row">
+                                    Email vérifié
+                                </th>
+                                <td>
+                                    {{ app.user.isVerified ? 'Oui' : 'Non'}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Pseudo
+                                </th>
+                                <td>
+                                    {{ app.user.Pseudo}}
+                                </td>
+                            </tr>
+                            {% if app.user.Birthday != "" %}
+                                <tr>
+                                    <th scope="row">
+                                        Date de naissance
+                                    </th>
+                                    <td>
+                                        {{ app.user.Birthday|date("d/m/Y")}}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if app.user.MoreInfo %}
+                                <tr>
+                                    <th scope="row">
+                                        Plus d'info
+                                    </th>
+                                    <td>
+                                        {{ app.user.MoreInfo }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if app.user.usersLinks !="" %}
+                                <tr>
+                                    <th scope="row">
+                                        Lien(s) personnel(s)
+                                    </th>
+                                    <td>
+                                        <ul>
+                                            {% for userslink in app.user.UsersLinks %}
+                                                <li>
+                                                    <a target="_blank" href="{{ userslink.url}}">
+                                                        {% if userslink.type == "website" %}
+                                                            <i class="bi bi-globe" title="Mon site web"></i>
+                                                        {% elseif userslink.type == "facebook" %}
+                                                            <i class="bi bi-facebook" title="Mon facebook"></i>
+                                                        {% elseif userslink.type == "youtube" %}
+                                                            <i class="bi bi-youtube" title="Mon youtube"></i>
+                                                        {% endif %}
+                                                        {{ userslink.url}}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row my-3 align-items-center justify-content-evenly">
+            <div class="col-lg-5 card shadows-custom mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Liste de mes articles en favories
+                    </h5>
+                    <div class="d-flex align-items-center justify-content-evenly flex-wrap">
+                        {% for key, article in app.user.articlesFavories %}
+                            {% if key <= 4 %}
+                                <a class="btn btn-dark-custom my-2" href="{{ path('app_article_view', {'slug': article.slug}) }}">
+                                    {{ article.title }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 card shadows-custom mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Liste de mes catégories en favories
+                    </h5>
+                    <div class="d-flex align-items-center justify-content-evenly flex-wrap">
+                        {% for key, category in app.user.categoriesFavories %}
+                            {% if key <= 4 %}
+                                <a class="btn btn-dark-custom my-2" href="{{ path('app_category_view', {'slug': category.slug}) }}">
+                                    {{ category.title }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

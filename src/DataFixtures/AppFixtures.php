@@ -160,7 +160,7 @@ class AppFixtures extends Fixture
             $manager->persist($category);
 
             // Article loop
-            for ($j=0; $j<5; $j++) { 
+            for ($j=0; $j<20; $j++) { 
                 $articleNumber = $j+1;
                 // Article initialisation
                 $article = new Articles();

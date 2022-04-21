@@ -1,0 +1,62 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}/Modification des mes informations{% endblock %}
+
+{% block body %}
+    <section class="py-5">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-evenly">
+                <div class="bg-glass p-5 shadows-custom rounded-3">
+                    <h1 class="display-1 mb-3">
+                        Modifier mes informations personnel
+                    </h1>
+                    {{ form_start(formUser) }}
+                        <div class="row">
+                            <div class="col-lg-6 mb-3">
+                                {{ form_row(formUser.email) }}
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                {{ form_row(formUser.pseudo) }}
+                            </div>
+                        </div>
+                        <div class="row align-items-center gx-3 border mb-3 p-3">
+                            <div class="col-lg-3">
+                                <h5>
+                                    Image de profile actuel
+                                </h5>
+                                {% if app.user.pictureProfilLink == "" %}
+                                    <img src="{{ asset("deco/profil/face_co.png")}}" class="img-circle-vh-20 mx-auto" alt="{{ app.user.pictureProfilAlt }}">
+                                {% else %}
+                                    <div class="position-relative">
+                                        <img src="{{ asset(app.user.pictureProfilLink)}}" class="img-circle-vh-20 mx-auto shadows-custom" alt="{{ app.user.pictureProfilAlt }}">
+                                        <a class="position-absolute top-0 start-0 btn btn-danger rounded-circle" title="Supprimé l'image de profile" href="{{ path('app_user_picture_delete', {id: user.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ user.id )}}">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-lg-9">
+                                {{ form_row(formUser.picture) }}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(formUser.birthday) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(formUser.moreInfo) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(formUser.link) }}
+                        </div>
+
+                        <div class="d-grid col-lg-4 mx-auto mt-3">
+                            <button class="btn btn-dark-custom rounded-pill" type="submit">
+                                Sauvegarder
+                            </button>
+                        </div>
+                    {{ form_end(formUser) }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

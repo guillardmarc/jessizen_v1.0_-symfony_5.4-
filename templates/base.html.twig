@@ -55,17 +55,17 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{ path('app_category_view', {'slug': category.slug}) }}#lastFiveArticlesForCategory">
                                             Les cinq derniers articles publiés
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{ path('app_category_view', {'slug': category.slug}) }}#threeBestRatedArticlesForCategory">
                                             Les trois articles publiés les mieux notés
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{ path('app_category_view', {'slug': category.slug}) }}#fiveMostViewedArticlesForCategory">
                                             Les cinq articles publiés les plus vues
                                         </a>
                                     </li>
@@ -73,8 +73,8 @@
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
-                                        Tous les articles de la categorie
+                                        <a class="dropdown-item" href="{{ path('app_category_view', {'slug': category.slug}) }}">
+                                            Tous les articles de la categorie
                                         </a>
                                     </li>
                                 </ul>
@@ -154,37 +154,37 @@
                                 <li>
                                     Propriètaire : {{ website.owner.pseudo }}
                                     <ul class="d-flex ">
-                                        {# {% for userslink in website.developer.usersLinks %}
+                                        {% for userslink in website.owner.usersLinks %}
                                             <li>
-                                                <a target="_blank" href="{{ userslink.httpLink}}">
-                                                    {% if userslink.typeLink == "website" %}
+                                                <a target="_blank" href="{{ userslink.url}}">
+                                                    {% if userslink.type == "website" %}
                                                         <i class="bi bi-globe" title="Mon site web"></i>
-                                                    {% elseif userslink.typeLink == "facebook" %}
+                                                    {% elseif userslink.type == "facebook" %}
                                                         <i class="bi bi-facebook" title="Mon facebook"></i>
-                                                    {% elseif userslink.typeLink == "youtube" %}
+                                                    {% elseif userslink.type == "youtube" %}
                                                         <i class="bi bi-youtube" title="Mon youtube"></i>
                                                     {% endif %}
                                                 </a>
                                             </li>
-                                        {% endfor %} #}
+                                        {% endfor %}
                                     </ul>
                                 </li>
                                 <li>
                                     Développeur : {{ website.developper.pseudo }}
                                     <ul class="d-flex ">
-                                        {# {% for userslink in website.developer.usersLinks %}
+                                        {% for userslink in website.developper.usersLinks %}
                                             <li>
-                                                <a target="_blank" href="{{ userslink.httpLink}}">
-                                                    {% if userslink.typeLink == "website" %}
+                                                <a target="_blank" href="{{ userslink.url}}">
+                                                    {% if userslink.type == "website" %}
                                                         <i class="bi bi-globe" title="Mon site web"></i>
-                                                    {% elseif userslink.typeLink == "facebook" %}
+                                                    {% elseif userslink.type == "facebook" %}
                                                         <i class="bi bi-facebook" title="Mon facebook"></i>
-                                                    {% elseif userslink.typeLink == "youtube" %}
+                                                    {% elseif userslink.type == "youtube" %}
                                                         <i class="bi bi-youtube" title="Mon youtube"></i>
                                                     {% endif %}
                                                 </a>
                                             </li>
-                                        {% endfor %} #}
+                                        {% endfor %}
                                     </ul>
                                 </li>
                                 <li>

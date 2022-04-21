@@ -116,4 +116,44 @@ class ArticlesRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function lastFiveArticlesForCategory($idCategory)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $date = date("Y/m/d");
+        $sql = "SELECT * FROM `articles` LEFT OUTER JOIN articles_categories on articles.id = articles_categories.articles_id WHERE articles_categories.categories_id = :idCategory and articles.publication_date <= :date ORDER BY articles.publication_date DESC LIMIT 5";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['date'=> $date, 'idCategory' => $idCategory],);
+        return $resultSet->fetchAllAssociative();
+    }
+
+    public function threeBestRatedArticlesForCategory($category)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $date = date("Y/m/d");
+        $sql = "SELECT * FROM `articles` LEFT OUTER JOIN articles_categories on articles.id = articles_categories.articles_id WHERE articles_categories.categories_id = :idCategory and articles.publication_date <= :date ORDER BY articles.publication_date DESC LIMIT 3";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['date'=> $date, 'idCategory' => $category]);
+        return $resultSet->fetchAllAssociative();
+    }
+
+    public function fiveMostViewedArticlesForCategory($category)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $date = date("Y/m/d");
+        $sql = "SELECT * FROM `articles` LEFT OUTER JOIN articles_categories on articles.id = articles_categories.articles_id WHERE articles_categories.categories_id = :idCategory and articles.publication_date <= :date ORDER BY articles.view_number DESC LIMIT 5";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['date'=> $date, 'idCategory' => $category]);
+        return $resultSet->fetchAllAssociative();
+    }
+    
+    public function articlesSortByDateForCategory($category)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $date = date("Y/m/d");
+        $sql = "SELECT * FROM `articles` LEFT OUTER JOIN articles_categories on articles.id = articles_categories.articles_id WHERE articles_categories.categories_id = :idCategory and articles.publication_date <= :date ORDER BY articles.publication_date DESC";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['date'=> $date, 'idCategory' => $category]);
+        return $resultSet->fetchAllAssociative();
+    }
 }

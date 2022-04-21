@@ -70,9 +70,15 @@ class Categories
      */
     private $slug;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="categoriesFavories")
+     */
+    private $favories;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->favories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,6 +217,30 @@ class Categories
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Users>
+     */
+    public function getFavories(): Collection
+    {
+        return $this->favories;
+    }
+
+    public function addFavory(Users $favory): self
+    {
+        if (!$this->favories->contains($favory)) {
+            $this->favories[] = $favory;
+        }
+
+        return $this;
+    }
+
+    public function removeFavory(Users $favory): self
+    {
+        $this->favories->removeElement($favory);
 
         return $this;
     }

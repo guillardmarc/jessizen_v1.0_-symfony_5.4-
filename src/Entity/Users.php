@@ -95,7 +95,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private $websiteSettlementAccept;
 
     /**
-     * @ORM\OneToMany(targetEntity=UsersLinks::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=UsersLinks::class, mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
     private $usersLinks;
 
@@ -139,6 +139,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $articlesCommentsAuthors;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Categories::class, mappedBy="favories")
+     */
+    private $categoriesFavories;
+
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
@@ -151,6 +156,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->articlesAuthor = new ArrayCollection();
         $this->articlesFavories = new ArrayCollection();
         $this->articlesCommentsAuthors = new ArrayCollection();
+        $this->categoriesFavories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -624,6 +630,33 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             if ($articlesCommentsAuthor->getAuthor() === $this) {
                 $articlesCommentsAuthor->setAuthor(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Categories>
+     */
+    public function getCategoriesFavories(): Collection
+    {
+        return $this->categoriesFavories;
+    }
+
+    public function addCategoriesFavory(Categories $categoriesFavory): self
+    {
+        if (!$this->categoriesFavories->contains($categoriesFavory)) {
+            $this->categoriesFavories[] = $categoriesFavory;
+            $categoriesFavory->addFavory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategoriesFavory(Categories $categoriesFavory): self
+    {
+        if ($this->categoriesFavories->removeElement($categoriesFavory)) {
+            $categoriesFavory->removeFavory($this);
         }
 
         return $this;
