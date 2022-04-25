@@ -50,6 +50,13 @@ class UserController extends AbstractController
             $picture = $form->get('picture')->getData();
             
             if($picture) {
+                // On récupère le nom de l'image
+                $link = $user->getPictureProfilName();
+                if ($link != "") {
+                    // On supprime le fichier
+                    unlink($this->getParameter('picture_users_directory')."/user_id".$idUser."/".$link);
+                }
+
                 $originalFilename = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
                 // ceci est nécessaire pour inclure en toute sécurité le nom de fichier dans l'URL
                 $safeFilename = $sluggerInterface->slug($originalFilename);
@@ -99,11 +106,79 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/downloaddata", name="downloaddata")
+     */
+    public function downloadDataUser(): Response
+    {
+        // Option pdf definied:
+        $pdfOptions = new Options();
+
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+
+        // Dompdf initialisation
+        $dompdf = new Dompdf($pdfOptions);
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer'=>false,
+                'verify_peer_name'=>false,
+                'allow_self_signed'=>true
+            ]
+        ]);
+        $dompdf->setHttpContext($context);
+
+        // html generaled:
+        $html = $this->renderView('user/data_download.html.twig');
+        $dompdf->load_Html($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+    
+        // File generaled:
+        
+        $fichier = 'user-data-'. $this->getUser()->getId() . '.pdf';
+        $dompdf->stream($fichier, [
+            'Attachement' => true
+        ]);
+
+        return new Response();
+    }
+
+    /**
      * @Route("/{id}/delect", name="delet", methods={"POST"})
      */
     public function deletUser(Users $user, EntityManagerInterface $entityManagerInterface, Request $request): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            // // Option pdf definied:
+            // $pdfOptions = new Options();
+
+            // $pdfOptions->set('defaultFont', 'Arial');
+            // $pdfOptions->setIsRemoteEnabled(true);
+
+            // // Dompdf initialisation
+            // $dompdf = new Dompdf($pdfOptions);
+            // $context = stream_context_create([
+            //     'ssl' => [
+            //         'verify_peer'=>false,
+            //         'verify_peer_name'=>false,
+            //         'allow_self_signed'=>true
+            //     ]
+            // ]);
+            // $dompdf->setHttpContext($context);
+
+            // // html generaled:
+            // $html = $this->renderView('user/data_download.html.twig');
+            // $dompdf->load_Html($html);
+            // $dompdf->setPaper('A4', 'portrait');
+            // $dompdf->render();
+        
+            // // File generaled:
+            
+            // $fichier = 'user-data-'. $this->getUser()->getId() . '.pdf';
+            // $dompdf->stream($fichier, [
+            //     'Attachement' => true
+            // ]);
+            
             $idUser = $user->getId();
             $dir = $this->getParameter('picture_users_directory').'/user_id'.$idUser;
 
@@ -130,7 +205,6 @@ class UserController extends AbstractController
     /**
      * @Route("/delect_picture/{id}", name="picture_delete", methods={"DELETE"})
      */
-
     public function deleteImage(Users $user, Request $request): Response
     {
         $data = json_decode($request->getContent(), true);
@@ -157,4 +231,26 @@ class UserController extends AbstractController
             return new JsonResponse(['error' => 'Token Invalide'], 400);
         }
     }
+
+    /**
+     * @Route("/delect_link/{id}", name="link_delete", methods={"DELETE"})
+     */
+    public function deleteLink(UsersLinks $userLink, Request $request): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        
+        //We check if the token is valid
+        if($this->isCsrfTokenValid('delete'.$userLink->getId(), $data['_token'])){
+            // On supprime l'entrée de la base
+            $em=$this->getDoctrine()->getManager();
+            $em->remove($userLink);
+            $em->flush();
+
+            // On répond en json
+            return new JsonResponse(['success' => 1]);
+        }else{
+            return new JsonResponse(['error' => 'Token Invalide'], 400);
+        }
+    }
+
 }

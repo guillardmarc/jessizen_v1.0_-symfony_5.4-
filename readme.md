@@ -252,13 +252,15 @@
 1. Fichier "**request.html.twig**" (Etat : Fait)
 1. Fichier "**reset.html.twig**" (Etat :Fait)
 
-### Partie "User" (Dépôt GITHub : )
+### Partie "User" (Dépôt GITHub : Fait)
 1. Création du controller "**User**" 
     1. Création de la fonction "**dashboard**" (Etat : Fait)
     1. Création de la fonction "**deletUser**" (Etat : Fait)
+    1. Création de la fonction "**downloadDataUser**" (Etat : Fait)
         1. Installation du bundle "**dompdf**" (Etat : Fait)
     1. Création de la fonction "**editUser**" (Etat : Fait)
     1. Création de la fonction "**deleteImage**" (Etat : Fait)
+    1. Création de la fonction "**deleteLink**" (Etat : Fait)
 1. Création du controller "**Category**"
     1. Création de la fonction "**viewCategory**" (Etat : Fait)
     1. Création de la fonction "**addFavoryCategory**" (Etat : Fait)
@@ -269,3 +271,9 @@
     1. Création de la fonction "**addFavoryArticle**" (Etat : Fait)
     1. Création de la fonction "**deletFavoryArticle**" (Etat : Fait)
     1. Création de la fonction "**listFavoriesArticles**" (Etat : Fait)
+
+### Partie "Author" (Dépôt GITHub : )
+1. Création du controller "**Author**"
+    1. Création de la fonction "**newArticle**" (Etat: )
+    1. Création de la fonction "**editArticle**"  (Etat: )
+    1. Création de la fonction "**deleteImage**" (Etat : Fait)

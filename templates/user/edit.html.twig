@@ -45,8 +45,34 @@
                         <div class="mb-3">
                             {{ form_row(formUser.moreInfo) }}
                         </div>
-                        <div class="mb-3">
-                            {{ form_row(formUser.link) }}
+                        <div class="row align-items-center gx-3 border mb-3">
+                            <div class="col-lg-7">
+                                <h5>
+                                    Lien(s) de profile actuel
+                                </h5>
+                                <ul class="list-group">
+                                    {% for userslink in app.user.UsersLinks %}
+                                        <li class="list-group-item">
+                                            <a class="" target="_blank" href="{{ userslink.url}}">
+                                                {% if userslink.type == "website" %}
+                                                    <i class="bi bi-globe" title="Mon site web"></i>
+                                                {% elseif userslink.type == "facebook" %}
+                                                    <i class="bi bi-facebook" title="Mon facebook"></i>
+                                                {% elseif userslink.type == "youtube" %}
+                                                    <i class="bi bi-youtube" title="Mon youtube"></i>
+                                                {% endif %}
+                                                {{ userslink.url}}
+                                            </a>
+                                            <a class="ms-1 btn btn-danger rounded-circle" title="Supprimé l'image de profile" href="{{ path('app_user_link_delete', {id: userslink.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ userslink.id )}}">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-lg-5">
+                                {{ form_row(formUser.link) }}
+                            </div>
                         </div>
 
                         <div class="d-grid col-lg-4 mx-auto mt-3">

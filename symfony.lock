@@ -1,4 +1,13 @@
 {
+    "basster/twig-base64-extension": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "0a0762c7d5acf2449f9f7f330a514c666e8d0b92"
+        }
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {

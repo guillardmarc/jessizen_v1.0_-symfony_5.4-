@@ -4,8 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd47e3b50dd0ff29b6bfe7bf730e6fcd",
+    "content-hash": "35914d23d79821fcddcb9afd0def0376",
     "packages": [
+        {
+            "name": "basster/twig-base64-extension",
+            "version": "2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Basster/twig-base64-extension.git",
+                "reference": "3e207a67ddd249b8641248ee5cf5ca9820458615"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Basster/twig-base64-extension/zipball/3e207a67ddd249b8641248ee5cf5ca9820458615",
+                "reference": "3e207a67ddd249b8641248ee5cf5ca9820458615",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/serializer": "^3.1|^4.0|^5.0",
+                "twig/twig": "^2.0|^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.15",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Basster\\TwigBase64\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ole Rößner",
+                    "email": "oroessner@gmail.com"
+                }
+            ],
+            "description": "Convert images to base64 in twig",
+            "support": {
+                "issues": "https://github.com/Basster/twig-base64-extension/issues",
+                "source": "https://github.com/Basster/twig-base64-extension/tree/master"
+            },
+            "time": "2020-08-13T15:11:17+00:00"
+        },
         {
             "name": "doctrine/annotations",
             "version": "1.13.2",

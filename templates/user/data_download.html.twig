@@ -1,0 +1,285 @@
+{% extends 'base_download.html.twig' %}
+
+{% block title %}Donnée de {{app.user.email}}{% endblock %}
+
+{% block body %}
+    <header class="bg-dark text-white py-3 mb-3">
+        {% for website in website.getWebsite %}
+            <h1 class="text-center">
+                Mes données du le site {{ website.logoText }}
+            </h1>
+        {% endfor %}
+    </header>
+    <main>
+        <section class="mb-3">
+            {# Personnal info block #}
+            <div class="card">
+                <div class="card-header text-center">
+                    Informations personnels
+                </div>
+                {% if app.user.pictureProfilLink %}
+                    <img src="{{ absolute_url(asset(app.user.pictureProfilLink)) }}" class="card-img-top w-50" alt="{{ app.user.pictureProfilAlt}}">
+                {% endif %}
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    Email
+                                </th>
+                                <td>
+                                    {{ app.user.email}}
+                                    <span class="bg-secondary p-2">
+                                        Vérifier :
+                                        {{ app.user.isVerified ? 'Oui' : 'Non'}}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Pseudo
+                                </th>
+                                <td>
+                                    {{ app.user.pseudo }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Rôles
+                                </th>
+                                <td>
+                                    {% for role in app.user.roles %}
+                                        {% if role == "ROLE_USER" %}
+                                            Role Lecteur ;
+                                        {% elseif role == "ROLE_AUTHOR" %}
+                                            Role Auteur ;
+                                        {% elseif role == "ROLE_ADMIN" %}
+                                            Role Administrateur ;
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Date de naissance
+                                </th>
+                                <td>
+                                    {% if app.user.birthday != "" %}
+                                        {{ app.user.birthday|date("d/m/Y")}}
+                                    {% else %}
+                                        Pas de date renseigné
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Plus d'info
+                                </th>
+                                <td>
+                                    {% if app.user.moreInfo %}
+                                        {{ app.user.moreInfo }}
+                                    {% else %}
+                                        Pas d'info renseigné
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Lien(s) personnel(s)
+                                </th>
+                                <td>
+                                    {% for userslink in app.user.usersLinks %}
+                                        <a target="_blank" href="{{ userslink.url}}">
+                                                {% if userslink.type == "website" %}
+                                                    <i class="bi bi-globe" title="Mon site web"></i>
+                                                {% elseif userslink.type == "facebook" %}
+                                                    <i class="bi bi-facebook" title="Mon facebook"></i>
+                                                {% elseif userslink.type == "youtube" %}
+                                                    <i class="bi bi-youtube" title="Mon youtube"></i>
+                                                {% endif %}
+                                                {{ userslink.url}}
+                                            </a> ;
+                                    {% else %}
+                                        Pas de liens renseignés
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer text-muted">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Date de création
+                                </th>
+                                <th scope="col">
+                                    Date de modification
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    {{ app.user.createdAt|date("d/m/Y H:m:s") }}
+                                </td>
+                                <td class="text-center">
+                                    {{ app.user.modifiedAt|date("d/m/Y H:m:s") }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        {% if is_granted('ROLE_AUTHOR') %}
+            <section class="mb-3">
+                {# Article block #}
+                <div class="card">
+                    <div class="card-header text-center">
+                        Mes articles
+                    </div>
+                    <div class="card-body">
+                        {% for article in app.user.articlesAuthor %}
+                            <div class="card mb-3">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        {% if article.pictureTopLink %}
+                                            <img src="{{ absolute_url(asset(article.pictureTopLink)) }}" class="card-img-top w-50" alt="{{ article.pictureTopAlt}}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                {{ article.title }}
+                                            </h4>
+                                            <p class="leak">
+                                                Catégories : 
+                                                {% for category in article.categories %}
+                                                    {{ category.title }};
+                                                {% endfor %}
+                                            </p>
+                                            {{ article.content|raw }}
+                                            {% for picture in article.articlespictures %}
+                                                <img src="{{ absolute_url(asset(picture.link)) }}" alt="" class="w-50">
+                                            {% endfor %}
+                                            <p class="card-text">
+                                                <small class="text-muted">
+                                                    Note :
+                                                    {{ article.note}}
+                                                </small>
+                                                <small class="text-muted">
+                                                    Nombre de vue :
+                                                    {{ article.viewNumber}}
+                                                </small>
+                                                <small class="text-muted">
+                                                    Date de publication :
+                                                    {{ article.publicationDate|date("d/m/Y") }}
+                                                </small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">
+                                                    Id
+                                                </th>
+                                                <th scope="col">
+                                                    Date de création
+                                                </th>
+                                                <th scope="col">
+                                                    Date de modification
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center">
+                                                    {{ article.id }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ article.createdAt|date("d/m/Y H:m:s") }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ article.modifiedAt|date("d/m/Y H:m:s") }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        {% else %}
+                            Pas d'articles créés
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            <section class="mb-3">
+                {# Categories block #}
+                <div class="card">
+                    <div class="card-header text-center">
+                        Mes categories
+                    </div>
+                    {% for category in app.user.categoriesAuthor %}
+                        <div class="card mb-3">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        {% if category.pictureLink %}
+                                            <img src="{{ absolute_url(asset(category.pictureLink)) }}" class="card-img-top w-50" alt="{{ category.pictureAlt}}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                {{ category.title }}
+                                            </h4>
+                                            {% if category.moreInfo %}
+                                                {{ category.moreInfo|raw }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">
+                                                    Id
+                                                </th>
+                                                <th scope="col">
+                                                    Date de création
+                                                </th>
+                                                <th scope="col">
+                                                    Date de modification
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center">
+                                                    {{ category.id }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ category.createdAt|date("d/m/Y H:m:s") }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ category.modifiedAt|date("d/m/Y H:m:s") }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                    {% else %}
+                            Pas de Catégories créés
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+    </main>
+            
+{% endblock %}
