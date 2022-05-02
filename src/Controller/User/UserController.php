@@ -144,41 +144,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delect", name="delet", methods={"POST"})
+     * @Route("/{id}/delet", name="delet", methods={"POST"})
      */
     public function deletUser(Users $user, EntityManagerInterface $entityManagerInterface, Request $request): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            // // Option pdf definied:
-            // $pdfOptions = new Options();
-
-            // $pdfOptions->set('defaultFont', 'Arial');
-            // $pdfOptions->setIsRemoteEnabled(true);
-
-            // // Dompdf initialisation
-            // $dompdf = new Dompdf($pdfOptions);
-            // $context = stream_context_create([
-            //     'ssl' => [
-            //         'verify_peer'=>false,
-            //         'verify_peer_name'=>false,
-            //         'allow_self_signed'=>true
-            //     ]
-            // ]);
-            // $dompdf->setHttpContext($context);
-
-            // // html generaled:
-            // $html = $this->renderView('user/data_download.html.twig');
-            // $dompdf->load_Html($html);
-            // $dompdf->setPaper('A4', 'portrait');
-            // $dompdf->render();
-        
-            // // File generaled:
-            
-            // $fichier = 'user-data-'. $this->getUser()->getId() . '.pdf';
-            // $dompdf->stream($fichier, [
-            //     'Attachement' => true
-            // ]);
-            
             $idUser = $user->getId();
             $dir = $this->getParameter('picture_users_directory').'/user_id'.$idUser;
 
@@ -198,6 +168,7 @@ class UserController extends AbstractController
 
             $entityManagerInterface->remove($user);
             $entityManagerInterface->flush();
+
         }
         return $this->redirectToRoute('app_home');
     }

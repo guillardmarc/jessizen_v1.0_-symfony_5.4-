@@ -1,0 +1,104 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}/Liste de mes articles{% endblock %}
+
+{% block header %}
+    <header class="bg-glass">
+        <div class="container">
+            <div class="vh-20 d-flex flex-column flex-lg-row align-items-center justify-content-center">
+                <h1 class="display-1">
+                    Liste des articles
+                </h1>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section class="my-5 p-3 bg-glass">
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Date de création
+                    </th>
+                    <th>
+                        Date de modification
+                    </th>
+                    <th>
+                        Titre
+                    </th>
+                    <th>
+                        Contenu
+                    </th>
+                    <th>
+                        Top images
+                    </th>
+                    <th>
+                        Note
+                    </th>
+                    <th>
+                        Nombre de vu
+                    </th>
+                    <th>
+                        Commentable
+                    </th>
+                    <th>
+                        Date de publication
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for article in app.user.articlesAuthor %}
+                <tr>
+                    <td>
+                        {{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}
+                    </td>
+                    <td>
+                        {{ article.modifiedAt ? article.modifiedAt|date('Y-m-d H:i:s') : '' }}
+                    </td>
+                    <td>
+                        {{ article.title }}
+                    </td>
+                    <td>
+                        {{ article.content|striptags|u.truncate(200,'...') }}
+                    </td>
+                    <td>
+                        Alt : {{ article.pictureTopAlt }}
+                        <br>
+                        Nom : {{ article.pictureTopName }}
+                        <img src="{{ asset(article.pictureTopLink) }}" class="img-fluid" alt="">
+                    </td>
+                    <td>
+                        {{ article.note }}
+                    </td>
+                    <td>
+                        {{ article.viewNumber }}
+                    </td>
+                    <td>
+                        {{ article.isCommented ? 'Oui' : 'Non' }}
+                    </td>
+                    <td>
+                        {{ article.publicationDate ? article.publicationDate|date('Y-m-d') : '' }}
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{{ path('app_author_show', {'slug': article.slug}) }}" class="btn btn-outline-secondary-custom" title="Voir l'article">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{{ path('app_articles_edit', {'slug': article.slug}) }}" class="btn btn-outline-warning" title="Modifier l'article">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="10">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

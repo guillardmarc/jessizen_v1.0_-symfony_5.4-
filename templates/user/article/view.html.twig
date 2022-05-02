@@ -48,12 +48,16 @@
                                     <i class="bi bi-bar-chart-fill"></i>
                                     {{ article.note|number_format(2, '.') }}
                                 </small>
-                                {% if is_granted("ROLE_USER") %}
+                                {% if is_granted('ROLE_USER') %}
                                     {% for favories in article.favories %}
                                         {% if favories.id == app.user.id %}
                                             <a class="text-danger" href="{{ path('app_article_deletfavory', {'slug': article.slug}) }}" title="Supprimer de vos articles favories">
                                                 <i class="bi bi-heart-fill"></i>
                                             </a>
+                                        {% else %}
+                                        <a class="text-danger" href="{{ path('app_article_addfavory', {'slug': article.slug}) }}" title="Ajouter à vos articles favories">
+                                            <i class="bi bi-heart"></i>
+                                        </a>
                                         {% endif %}
                                     {% else %}
                                         <a class="text-danger" href="{{ path('app_article_addfavory', {'slug': article.slug}) }}" title="Ajouter à vos articles favories">

@@ -273,7 +273,11 @@
     1. Création de la fonction "**listFavoriesArticles**" (Etat : Fait)
 
 ### Partie "Author" (Dépôt GITHub : )
-1. Création du controller "**Author**"
-    1. Création de la fonction "**newArticle**" (Etat: )
-    1. Création de la fonction "**editArticle**"  (Etat: )
-    1. Création de la fonction "**deleteImage**" (Etat : Fait)
+1. Modification du controller "**Articles**"
+    1. Modification de la fonction "**listArticle**" (Etat : Fait)
+    1. Modification de la fonction "**deletArticle**" (Etat : Fait)
+    1. Modification de la fonction "**editArticle**" (Etat: Fait)
+    1. Modification de la fonction "**newArticle**" (Etat: Fait)
+    1. Modification de la fonction "**showArticle**" (Etat : Fait)
+    1. Création de la fonction "**deleteImageSecondary**" (Etat : Fait)
+    1. Installation du bundle "**CKEditor**" (Etat : Fait)

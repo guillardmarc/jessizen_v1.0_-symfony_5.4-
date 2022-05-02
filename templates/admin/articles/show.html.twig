@@ -1,0 +1,227 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block header %}
+    <header class="bg-glass">
+        <div class="container">
+            <div class="vh-20 d-flex flex-column flex-lg-row align-items-center justify-content-evenly">
+                <h1 class="display-1">
+                    Contenu de l'article
+                </h1>
+                <div class="btn-group">
+                    <a href="{{ path('app_articles_list') }}" class="btn btn-outline-secondary-custom" title="Retour vers la liste des articles">
+                        <i class="bi bi-list-ul"></i>
+                    </a>
+                    <a href="{{ path('app_articles_edit', {'slug': article.slug}) }}" class="btn btn-outline-warning" title="Modifier l'article">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section class="my-5 p-3 bg-glass">
+        <table class="table table-sm table-striped">
+            <tbody>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <td>
+                        {{ article.id }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Créer le
+                    </th>
+                    <td>
+                        {{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Modifier le
+                    </th>
+                    <td>
+                        {{ article.modifiedAt ? article.modifiedAt|date('Y-m-d H:i:s') : '' }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Titre
+                    </th>
+                    <td>
+                        {{ article.title }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Slug
+                    </th>
+                    <td>
+                        {{ article.slug }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Contenu
+                    </th>
+                    <td>
+                        {{ article.content|raw }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Note
+                    </th>
+                    <td>
+                        {{ article.note }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Nombre de votant
+                    </th>
+                    <td>
+                        {{ article.voterNumber }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Nombre de vue
+                    </th>
+                    <td>
+                        {{ article.viewNumber }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Commentable
+                    </th>
+                    <td>
+                        {{ article.isCommented ? 'Oui' : 'Non' }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Date de publication
+                    </th>
+                    <td>
+                        {{ article.publicationDate ? article.publicationDate|date('d/m/Y') : '' }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Nombre où l'article est favorie 
+                    </th>
+                    <td>
+                        {% set countFavory = 0 %}
+                        {% for favory in article.favories %}
+                            {% set countFavory = countFavory+1 %}
+                        {% endfor %}
+                        {{ countFavory }}
+                    </td>
+                </tr>
+            </tbody>
+        <table>
+        <table class="table table-sm my-3">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">
+                        Visuel
+                    </th>
+                    <th scope="col">
+                        Alt
+                    </th>
+                    <th scope="col">
+                        Lien
+                    </th>
+                    <th scope="col">
+                        Nom
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">
+                        Image Top
+                    </th>
+                    <td>
+                        <img src="{{ asset(article.pictureTopLink) }}" class="img-fluid" alt="">
+                    </td>
+                    <td>
+                        {{ article.pictureTopAlt }}
+                    </td>
+                    <td>
+                        {{ article.pictureTopLink }}
+                    </td>
+                    <td>
+                        {{ article.pictureTopName }}
+                    </td>
+                </tr>
+                {% for picture in article.articlesPictures %}
+                    <tr>
+                        <th scope="row">
+                            Image secondaire
+                        </th>
+                        <td>
+                            <img src="{{ asset(picture.Link) }}" class="img-fluid" alt="">
+                        </td>
+                        <td>
+                            {{ picture.Alt }}
+                        </td>
+                        <td>
+                            {{ picture.Link }}
+                        </td>
+                        <td>
+                            {{ picture.Name }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+    </section>
+
+    
+
+            {# <tr>
+                <th>
+                    Image top
+                </th>
+                <td>
+                    <img src="{{ asset(article.pictureTopLink) }}" class="img-fluid" alt="">
+                </td>
+            </tr>
+            <tr>
+                <th>PictureTopName</th>
+                <td>{{ article.pictureTopName }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ article.note }}</td>
+            </tr>
+            <tr>
+                <th>VoterNumber</th>
+                <td>{{ article.voterNumber }}</td>
+            </tr>
+            <tr>
+                <th>ViewNumber</th>
+                <td>{{ article.viewNumber }}</td>
+            </tr>
+            <tr>
+                <th>IsCommented</th>
+                <td>{{ article.isCommented ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>PublicationDate</th>
+                <td>{{ article.publicationDate ? article.publicationDate|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table> #}
+{% endblock %}

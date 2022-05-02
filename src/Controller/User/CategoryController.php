@@ -22,7 +22,7 @@ class CategoryController extends AbstractController
     {
         $idCategory = $category->getId();
         
-        return $this->render('user/category/index.html.twig', [
+        return $this->render('user/category/view.html.twig', [
             'category' => $category,
             'lastFiveArticlesForCategory'=> $articlesRepository->lastFiveArticlesForCategory($idCategory),
             'threeBestRatedArticlesForCategory'=> $articlesRepository->threeBestRatedArticlesForCategory($idCategory),
@@ -34,9 +34,9 @@ class CategoryController extends AbstractController
     /**
      * @Route("/liste_categories_favories", name="list")
      */
-    public function listFavoriesArticles(): Response
+    public function listFavoriesCategories(): Response
     {
-        return $this->render('user/category/list.html.twig');
+        return $this->render('user/category/index.html.twig');
     }
 
     /**

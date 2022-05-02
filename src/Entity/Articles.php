@@ -101,7 +101,7 @@ class Articles
     private $favories;
 
     /**
-     * @ORM\OneToMany(targetEntity=ArticlesPictures::class, mappedBy="article", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ArticlesPictures::class, mappedBy="article", orphanRemoval=true, cascade={"persist"})
      */
     private $articlesPictures;
 

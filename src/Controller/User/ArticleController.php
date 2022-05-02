@@ -57,7 +57,7 @@ class ArticleController extends AbstractController
      */
     public function listFavoriesArticles(): Response
     {
-        return $this->render('user/article/list.html.twig');
+        return $this->render('user/article/index.html.twig');
     }
 
     /**

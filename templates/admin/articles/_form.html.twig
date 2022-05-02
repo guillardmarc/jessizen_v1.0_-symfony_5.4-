@@ -1,0 +1,61 @@
+{{ form_start(form) }}
+    <p class="text-center bg-warning fs-5 fw-bolder">
+        Les champs signaler par une étoile sont oblicatoire
+    </p>
+    <div class="mb-3">
+        {{ form_row(form.title) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.content) }}
+    </div>
+    <div class="border mb-3 p-3">
+        {{ form_row(form.pictureTopLink) }}
+        {% if app.request.attributes.get('_route') == 'app_articles_edit' %}
+            <h5>
+                Image top actuel
+            </h5>
+            <p class="border border-warning text-center fs-6 fst-italic">
+                L'image des suprimé dès vous changer d'image.
+            </p>
+            <div class="d-flex align-items-center justify-content-evenly">
+                <div class="position-relative">
+                    <img src="{{ asset(article.pictureTopLink) }}" class="img-square-vh-20">
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="border mb-3 p-3">
+        {{ form_row(form.pictureSecondaryLink) }}
+        {% if app.request.attributes.get('_route') == 'app_articles_edit' %}
+            <h5>
+                Image top actuel
+            </h5>
+            <div class="d-flex align-items-center justify-content-evenly">
+                {% for picture in article.articlesPictures %}
+                    <div class="position-relative">
+                        <img src="{{ asset(picture.Link) }}" class="img-square-vh-20">
+                        <a class="position-absolute top-0 start-0 btn btn-danger rounded-circle" title="Supprimé l'image"  href="{{ path('app_articles_picture_delete', {id: picture.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ picture.id )}}">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.categories) }}
+    </div>
+    <div class="row align-items-center justify-content-evenly">
+        <div class="col-lg-6 mb-3">
+            {{ form_row(form.publicationDate) }}
+        </div>
+        <div class="col-lg-6 mb-3">
+            {{ form_row(form.isCommented) }}
+        </div>
+    </div>
+    <div class="d-grid col-lg-4 mx-auto mt-3">
+        <button class="btn btn-dark-custom rounded-pill" type="submit">
+            {{ button_label|default('Création') }}
+        </button>
+    </div>
+{{ form_end(form) }}
