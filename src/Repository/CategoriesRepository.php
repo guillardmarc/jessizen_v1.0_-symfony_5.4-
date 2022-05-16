@@ -73,4 +73,14 @@ class CategoriesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function categoryArticlesNotNull()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere(IsNotNull('c.articles'))
+            ->orderBy('c.title', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

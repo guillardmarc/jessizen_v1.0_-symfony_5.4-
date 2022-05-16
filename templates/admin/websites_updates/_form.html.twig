@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+    <p class="text-center bg-warning fs-5 fw-bolder">
+        Les champs signaler par une étoile sont oblicatoire
+    </p>
+    <div class="mb-3">
+        {{ form_row(form.title) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.date) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.moreInfo) }}
+    </div><div class="mb-3">
+        {{ form_row(form.website) }}
+    </div>
+    <div class="d-grid col-lg-4 mx-auto mt-3">
+        <button class="btn btn-dark-custom rounded-pill" type="submit">
+            {{ button_label|default('Créer') }}
+        </button>
+    </div>
+{{ form_end(form) }}

@@ -1,0 +1,6 @@
+<form class="btn btn-outline-danger" method="post" action="{{ path('app_users_delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous sûr de bien vouloir supprimer utilisateur?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+    <button class="btn m-0 p-0" title="Supprimer">
+        <i class="bi bi-trash"></i>
+    </button>
+</form>

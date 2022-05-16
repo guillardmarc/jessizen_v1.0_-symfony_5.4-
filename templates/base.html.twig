@@ -6,11 +6,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {# Title tag #}
-        {% for website in website.getWebsite %}
+        {% for website in websitetwig.getWebsite %}
             <title>{{ website.logoText}}{% block title %}Welcome!{% endblock %}</title>
         {% endfor %}
         {# Link tags #}
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {% for website in websitetwig.getWebsite %}
+            <link rel="icon" href="{{ asset(website.logoPictureLink) }}">
+        {% endfor %}
         {# Stylesheets webpack tag #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -24,7 +26,7 @@
         {# Nav block #}
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-glass">
             <div class="container-fluid">
-                {% for website in website.getWebsite %}
+                {% for website in websitetwig.getWebsite %}
                     <a class="navbar-brand" href="{{ path('app_home')}}">
                         {% if website.logoPictureLink %}
                             <img src="{{ asset(website.logoPictureLink) }}" alt="{{ website.logoPictureAlt }}"  class="img-circle-vh-10">
@@ -142,7 +144,7 @@
         <footer class="bg-dark-custom text-light">
             <div class="container">
                 <div class="d-flex flex-column flex-lg-row align-items-top justify-content-between">
-                    {% for website in website.getWebsite %}
+                    {% for website in websitetwig.getWebsite %}
                         <h5 class="pt-3">
                             {{ website.copyright }}
                         </h5>

@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body %}
-    <section class="py-5 ">
+    <section class="py-5">
         <div class="container">
             <div class="card my-5 px-2 px-lg-5 py-5">
                 <div class="row g-0 align-items-center">
@@ -90,4 +90,89 @@
             </div>
         </div>
     </section>
+    {% if article.isCommented %}
+        <section class="py-5">
+            <div class="container">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item rounded">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                Ajouter un commentaite
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse p-3" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            {{ form_start(commentForm) }}
+                                {{ form_widget(commentForm.content) }}
+                                <div class="d-grid col-lg-4 mx-auto mt-3">
+                                    <button class="btn btn-dark-custom rounded-pill" type="submit">
+                                        Poster le commentaire
+                                    </button>
+                                </div>
+                            {{ form_end(commentForm) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-5">
+            <div class="container">
+                <h5>
+                    Commentaire
+                </h5>
+                {% for comment in article.articlesComments %}
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-end">
+                            
+                            <div>
+                                {{ comment.createdAt|date('d/m/Y H:i:s')}}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {{ comment.content|raw }}
+                        </div>
+                        <div class="card-footer text-muted">
+                            <nav class="navbar rounded navbar-light bg-light">
+                                <div class="container-fluid">
+                                    <h5 class="mx-auto">
+                                        Auteur du commentaire :
+                                        {% if comment.author.pictureProfilLink %}
+                                            <img src="{{ asset(comment.author.pictureProfilLink) }}" alt="{{ comment.author.pictureProfilAlt }}" width="60">
+                                        {% else %}
+                                            <img src="{{ asset("deco/profil/face_co.png")}}" alt="" width="60">
+                                        {% endif %}
+                                        {{ comment.author.pseudo}}
+                                    </h5>
+                                    <button class="navbar-toggler mx-auto mx-lg-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglePersonnelInfos" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        <i class="bi bi-plus-circle"></i>
+                                        Plus d'info sur l'auteur
+                                    </button>
+                                </div>
+                            </nav>
+                            <div class="collapse" id="navbarTogglePersonnelInfos">
+                                <div class="table-responsive">
+                                    <ul>
+                                        {% for userslink in comment.author.usersLinks %}
+                                            <li>
+                                                <a target="_blank" href="{{ userslink.url}}">
+                                                    {% if userslink.type == "website" %}
+                                                        <i class="bi bi-globe" title="Mon site web"></i>
+                                                    {% elseif userslink.type == "facebook" %}
+                                                        <i class="bi bi-facebook" title="Mon facebook"></i>
+                                                    {% elseif userslink.type == "youtube" %}
+                                                        <i class="bi bi-youtube" title="Mon youtube"></i>
+                                                    {% endif %}
+                                                    {{ userslink.url}}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+   
 {% endblock %}

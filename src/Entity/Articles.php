@@ -75,9 +75,9 @@ class Articles
     private $viewNumber;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean")
      */
-    private $isCommented;
+    private $isCommented = false;
 
     /**
      * @ORM\Column(type="date", nullable=true)

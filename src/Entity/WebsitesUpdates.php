@@ -43,7 +43,7 @@ class WebsitesUpdates
     private $moreInfo;
 
     /**
-     * @ORM\Column(type="string", length=3, nullable=true)
+     * @ORM\Column(type="string", length=6, nullable=true)
      */
     private $underVersion;
 

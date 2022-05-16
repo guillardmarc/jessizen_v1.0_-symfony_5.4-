@@ -4,7 +4,7 @@
 
 {% block header %}
     {# Presentation block #}
-    {% for website in website.getWebsite %}
+    {% for website in websitetwig.getWebsite %}
         <header style="background: linear-gradient(90deg,rgba(244, 148, 139, 0.4), rgba(4, 101, 130, 0.8)), center / cover no-repeat url('{{ asset(website.presentationPictureLink) }}')">
             <div class="container">
                 <div class="vh-100 d-flex flex-column flex-lg-row align-items-center justify-content-center">

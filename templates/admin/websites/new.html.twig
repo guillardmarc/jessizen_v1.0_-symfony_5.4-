@@ -1,0 +1,26 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}/Nouvelle information du site{% endblock %}
+
+{% block header %}
+    <header class="bg-glass">
+        <div class="container">
+            <div class="vh-20 d-flex flex-column flex-lg-row align-items-center justify-content-evenly">
+                <h1 class="display-1">
+                    Créer une nouvelle information du site
+                </h1>
+                <div class="btn-group">
+                    <a href="{{ path('app_user_dashboard') }}" class="btn btn-outline-secondary-custom" title="Retour vers la page d'accueil">
+                        <i class="bi bi-arrow-return-left"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section class="my-5 bg-glass p-3">
+        {{ include('admin/websites/_form.html.twig') }}
+    </section>
+{% endblock %}

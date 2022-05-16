@@ -1,0 +1,6 @@
+<form class="btn btn-outline-danger" method="post" action="{{ path('app_websites_delete', {'id': website.id}) }}" onsubmit="return confirm('Êtes-vous sûr de bien vouloir supprimer les informations du site?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ website.id) }}">
+    <button class="btn m-0 p-0" title="Supprimer">
+        <i class="bi bi-trash"></i>
+    </button>
+</form>

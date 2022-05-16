@@ -17,9 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route(name="app_user_")
+ * @Route( name="app_user_")
+ * @IsGranted("ROLE_USER")
  */
 
 class UserController extends AbstractController

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Author;
 
 use App\Entity\Articles;
+use App\Entity\ArticlesComments;
 use App\Entity\ArticlesPictures;
 use App\Form\ArticlesType;
 use App\Repository\ArticlesRepository;
@@ -15,9 +16,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route(name="app_articles_")
+ * @IsGranted("ROLE_AUTHOR")
  */
 class ArticlesController extends AbstractController
 {
@@ -27,12 +30,12 @@ class ArticlesController extends AbstractController
     public function listArticle(ArticlesRepository $articlesRepository): Response
     {
         if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->render('admin/articles/index.html.twig', [
+            return $this->render('author/articles/index.html.twig', [
                 'articles' => $articlesRepository->findBy([],['modifiedAt'=>'DESC']),
             ]);
         }
         else {
-            return $this->render('admin/articles/index_author.html.twig');
+            return $this->render('author/articles/index_author.html.twig');
         }
         
     }
@@ -125,7 +128,7 @@ class ArticlesController extends AbstractController
             return $this->redirectToRoute('app_articles_list', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/articles/new.html.twig', [
+        return $this->renderForm('author/articles/new.html.twig', [
             'article' => $article,
             'form' => $form,
         ]); 
@@ -134,9 +137,9 @@ class ArticlesController extends AbstractController
     /**
      * @Route("/appercu_article_{slug}", name="show", methods={"GET"})
      */
-    public function showArticle(Articles $article): Response
+    public function showArticle(Articles $article, Request $request): Response
     {
-        return $this->render('admin/articles/show.html.twig', [
+        return $this->render('author/articles/show.html.twig', [
             'article' => $article,
         ]);
     }
@@ -230,7 +233,7 @@ class ArticlesController extends AbstractController
             return $this->redirectToRoute('app_articles_list', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/articles/edit.html.twig', [
+        return $this->renderForm('author/articles/edit.html.twig', [
             'article' => $article,
             'form' => $form,
         ]);

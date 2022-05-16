@@ -3,19 +3,21 @@
 {% block title %}/ Ma page{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row my-3 align-items-center justify-content-evenly">
-            {# Personnal info block #}
-            <div class="col-lg-10 card shadows-custom mb-3">
-                <div class="row g-0">
-                    <div class="col-md-4">
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-between align-items-start">
+                <div class="col-lg-5">
+                    <div class="card shadows-custom mb-3">
+                        <div class="card-header">
+                            <h5>
+                                Informations personnel
+                            </h5>
+                        </div>
                         {% if app.user.pictureProfilLink == "" %}
-                            <img src="{{ asset("deco/profil/face_co.png")}}" class="img-fluid rounded-circle" alt="{{ app.user.pictureProfilAlt }}">
+                            <img src="{{ asset("deco/profil/face_co.png")}}" class="card-img-top img-circle-vh-20" alt="{{ app.user.pictureProfilAlt }}">
                         {% else %}
-                            <img src="{{ asset(app.user.pictureProfilLink)}}" class="img-fluid rounded-circle" alt="{{ app.user.pictureProfilAlt }}">
+                            <img src="{{ asset(app.user.pictureProfilLink)}}" class="card-img-top img-circle-vh-20" alt="{{ app.user.pictureProfilAlt }}">
                         {% endif %}
-                    </div>
-                    <div class="col-md-8">
                         <div class="card-body">
                             <table class="table">
                                 <tbody>
@@ -33,240 +35,247 @@
                                         </th>
                                         <td>
                                             {{ app.user.email }}
+                                            {% if app.user.isVerified == true %}
+                                                <span class="text-success p-1 border border-success rounded-pill">Vérifier</span>
+                                            {% else %}
+                                                <span class="text-danger p-1 border border-danger rounded-pill">Non vérifier</span>
+                                            {% endif %}
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            Mot de passe
-                                        </th>
-                                        <td>
-                                            Mot de passe non visible, car haché.
-                                            <a href="{{ path('app_forgot_password_request') }}">
-                                                Réinitialiser le mot de passe
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            Date de création du compte
-                                        </th>
-                                        <td>
-                                            {{ app.user.createdAt|date("d/m/Y H:m:s")}}
-                                        </td>
-                                    </tr>
-                                    {% if app.user.modifiedAt != app.user.createdAt %}
-                                        <tr>
-                                            <th scope="row">
-                                                Date de la dernière modification
-                                            </th>
-                                            <td>
-                                                {{ app.user.modifiedAt|date("d/m/Y H:m:s")}}
-                                            </td>
-                                        </tr>
-                                    {% endif %}
                                     <tr>
                                         <th scope="row">
                                             Rôle(s)
                                         </th>
                                         <td>
-                                            <ul>
-                                                {% for role in app.user.roles %}
-                                                    <li>
-                                                        {% if role == "ROLE_USER" %}
-                                                            Role Lecteur
-                                                        {% elseif role == "ROLE_AUTHOR" %}
-                                                            Role Auteur
-                                                        {% elseif role == "ROLE_ADMIN" %}
-                                                            Role Administrateur
-                                                        {% endif %}
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
+                                            {% for role in app.user.roles %}
+                                                
+                                                    {% if role == "ROLE_USER" %}
+                                                        Role Lecteur
+                                                    {% elseif role == "ROLE_AUTHOR" %}
+                                                        / Role Auteur
+                                                    {% elseif role == "ROLE_ADMIN" %}
+                                                        / Role Administrateur
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-sm">
-                            <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        Email vérifié
-                                    </th>
-                                    <td>
-                                        {{ app.user.isVerified ? 'Oui' : 'Non'}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Date de naissance
-                                    </th>
-                                    <td>
-                                        {% if app.user.birthday != "" %}
-                                            {{ app.user.birthday|date("d/m/Y")}}
-                                        {% else %}
-                                            Pas de date renseigné
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Plus d'info
-                                    </th>
-                                    <td>
-                                        {% if app.user.moreInfo %}
-                                            {{ app.user.moreInfo }}
-                                        {% else %}
-                                            Pas d'info renseigné
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Lien(s) personnel(s)
-                                    </th>
-                                    <td>
-                                        <ul>
-                                            {% for userslink in app.user.usersLinks %}
-                                                <li>
-                                                    <a target="_blank" href="{{ userslink.url}}">
-                                                        {% if userslink.type == "website" %}
-                                                            <i class="bi bi-globe" title="Mon site web"></i>
-                                                        {% elseif userslink.type == "facebook" %}
-                                                            <i class="bi bi-facebook" title="Mon facebook"></i>
-                                                        {% elseif userslink.type == "youtube" %}
-                                                            <i class="bi bi-youtube" title="Mon youtube"></i>
-                                                        {% endif %}
-                                                        {{ userslink.url}}
+                            <nav class="navbar rounded navbar-light bg-light">
+                                <div class="container-fluid">
+                                    <h5 class="mx-auto">
+                                        Plus de détails
+                                    </h5>
+                                    <button class="navbar-toggler mx-auto mx-lg-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglePersonnelInfos" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                </div>
+                            </nav>
+                            <div class="collapse" id="navbarTogglePersonnelInfos">
+                                <div class="table-responsive">
+                                    <div class="p-4">
+                                    <table class="table table-sm align-middle">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">
+                                                    Mot de passe
+                                                </th>
+                                                <td>
+                                                    Mot de passe non visible, car haché.
+                                                    <a href="{{ path('app_forgot_password_request') }}">
+                                                        Réinitialiser le mot de passe
                                                     </a>
-                                                </li>
-                                            {% else %}
-                                                Pas de liens renseignés
-                                            {% endfor %}
-                                        </ul>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row my-3 align-items-top justify-content-evenly">
-            {# Favories articles block #}
-            <div class="col-lg-5 mb-3">
-                <nav class="navbar rounded navbar-light bg-light shadows-custom">
-                    <div class="container-fluid">
-                        <h5 class="mx-auto">
-                            Mes 5 derniers articles favories
-                        </h5>
-                        <button class="navbar-toggler mx-auto mx-lg-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleFavoriesArticles" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-                </nav>
-                <div class="collapse" id="navbarToggleFavoriesArticles">
-                    <div class="bg-dark text-white p-4">
-                        <div class="d-grid gap-2 d-block">
-                            {% for key, article in app.user.articlesFavories %}
-                                {% if key < 5 %}
-                                    <a class="btn btn-dark-custom my-2" href="{{ path('app_article_view', {'slug': article.slug}) }}">
-                                        {{ article.title }}
-                                    </a>
-                                {% endif %}
-                            {% else %}
-                                Pas d'articles favories
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {# Favories categories block #}
-            <div class="col-lg-5 mb-3">
-                <nav class="navbar rounded navbar-light bg-light shadows-custom">
-                    <div class="container-fluid">
-                        <h5 class="mx-auto">
-                            Mes 5 derniers catégories favories
-                        </h5>
-                        <button class="navbar-toggler mx-auto mx-lg-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleFavoriesCategories" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-                </nav>
-                <div class="collapse" id="navbarToggleFavoriesCategories">
-                    <div class="bg-dark text-white p-4">
-                        <div class="d-grid gap-2 d-block">
-                            {% for key, category in app.user.categoriesFavories %}
-                                {% if key < 5 %}
-                                    <a class="btn btn-dark-custom my-2" href="{{ path('app_category_view', {'slug': category.slug}) }}">
-                                        {{ category.title }}
-                                    </a>
-                                {% endif %}
-                            {% else %}
-                                Pas de categories favories
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% if is_granted('ROLE_AUTHOR') %}
-                {# My articles block #}
-                <div class="col-lg-5 mb-3">
-                    <nav class="navbar rounded navbar-light bg-light shadows-custom">
-                        <div class="container-fluid">
-                            <h5 class="mx-auto">
-                                Mes articles
-                            </h5>
-                            <button class="navbar-toggler mx-auto mx-lg-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleMyArticles" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                        </div>
-                    </nav>
-                    <div class="collapse" id="navbarToggleMyArticles">
-                        <div class="bg-dark text-white p-4">
-                            <div class="d-grid gap-2 d-block">
-                                {% for article in app.user.articlesAuthor %}
-                                    <a class="btn btn-dark-custom my-2" href="{{ path('app_article_view', {'slug': article.slug}) }}">
-                                        {{ article.title }}
-                                    </a>
-                                {% else %}
-                                    Pas d'articles enregisté
-                                {% endfor %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">
+                                                    Date de création du compte
+                                                </th>
+                                                <td>
+                                                    {{ app.user.createdAt|date("d/m/Y H:m:s")}}
+                                                </td>
+                                            </tr>
+                                            {% if app.user.modifiedAt != app.user.createdAt %}
+                                                <tr>
+                                                    <th scope="row">
+                                                        Date de la dernière modification
+                                                    </th>
+                                                    <td>
+                                                        {{ app.user.modifiedAt|date("d/m/Y H:m:s")}}
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <th scope="row">
+                                                    Date de naissance
+                                                </th>
+                                                <td>
+                                                    {% if app.user.birthday != "" %}
+                                                        {{ app.user.birthday|date("d/m/Y")}}
+                                                    {% else %}
+                                                        Pas de date renseigné
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">
+                                                    Plus d'info
+                                                </th>
+                                                <td>
+                                                    {% if app.user.moreInfo %}
+                                                        {{ app.user.moreInfo }}
+                                                    {% else %}
+                                                        Pas d'info renseigné
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">
+                                                    Lien(s) personnel(s)
+                                                </th>
+                                                <td>
+                                                    <ul>
+                                                        {% for userslink in app.user.usersLinks %}
+                                                            <li>
+                                                                <a target="_blank" href="{{ userslink.url}}">
+                                                                    {% if userslink.type == "website" %}
+                                                                        <i class="bi bi-globe" title="Mon site web"></i>
+                                                                    {% elseif userslink.type == "facebook" %}
+                                                                        <i class="bi bi-facebook" title="Mon facebook"></i>
+                                                                    {% elseif userslink.type == "youtube" %}
+                                                                        <i class="bi bi-youtube" title="Mon youtube"></i>
+                                                                    {% endif %}
+                                                                    {{ userslink.url}}
+                                                                </a>
+                                                            </li>
+                                                        {% else %}
+                                                            Pas de liens renseignés
+                                                        {% endfor %}
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {# My categories block #}
-                <div class="col-lg-5 mb-3">
-                    <nav class="navbar rounded navbar-light bg-light shadows-custom">
-                        <div class="container-fluid">
-                            <h5 class="mx-auto">
-                                Mes catégories
-                            </h5>
-                            <button class="navbar-toggler mx-auto mx-lg-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleMyCategories" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                        </div>
-                    </nav>
-                    <div class="collapse" id="navbarToggleMyCategories">
-                        <div class="bg-dark text-white p-4">
-                            <div class="d-grid gap-2 d-block">
-                                {% for category in app.user.categoriesAuthor %}
-                                    <a class="btn btn-dark-custom my-2" href="{{ path('app_category_view', {'slug': category.slug}) }}">
-                                        {{ category.title }}
-                                    </a>
-                                {% else %}
-                                    Pas de categories enregisté
-                                {% endfor %}
+                <div class="col-lg-6">
+                    {# Favories articles block #}
+                    <div class="mb-3">
+                        <nav class="navbar rounded navbar-light bg-light shadows-custom">
+                            <div class="container-fluid">
+                                <h5 class="mx-auto">
+                                    Mes 5 derniers articles favories
+                                </h5>
+                                <button class="navbar-toggler mx-auto mx-lg-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleFavoriesArticles" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                            </div>
+                        </nav>
+                        <div class="collapse" id="navbarToggleFavoriesArticles">
+                            <div class="bg-dark text-white p-4">
+                                <div class="d-grid gap-2 d-block">
+                                    {% for key, article in app.user.articlesFavories %}
+                                        {% if key < 5 %}
+                                            <a class="btn btn-dark-custom my-2" href="{{ path('app_article_view', {'slug': article.slug}) }}">
+                                                {{ article.title }}
+                                            </a>
+                                        {% endif %}
+                                    {% else %}
+                                        Pas d'articles favories
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {# Favories categories block #}
+                    <div class="mb-3">
+                        <nav class="navbar rounded navbar-light bg-light shadows-custom">
+                            <div class="container-fluid">
+                                <h5 class="mx-auto">
+                                    Mes 5 derniers catégories favories
+                                </h5>
+                                <button class="navbar-toggler mx-auto mx-lg-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleFavoriesCategories" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                            </div>
+                        </nav>
+                        <div class="collapse" id="navbarToggleFavoriesCategories">
+                            <div class="bg-dark text-white p-4">
+                                <div class="d-grid gap-2 d-block">
+                                    {% for key, category in app.user.categoriesFavories %}
+                                        {% if key < 5 %}
+                                            <a class="btn btn-dark-custom my-2" href="{{ path('app_category_view', {'slug': category.slug}) }}">
+                                                {{ category.title }}
+                                            </a>
+                                        {% endif %}
+                                    {% else %}
+                                        Pas de categories favories
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if is_granted('ROLE_AUTHOR') %}
+                        {# My articles block #}
+                        <div class="mb-3">
+                            <nav class="navbar rounded navbar-light bg-light shadows-custom">
+                                <div class="container-fluid">
+                                    <h5 class="mx-auto">
+                                        Mes articles
+                                    </h5>
+                                    <button class="navbar-toggler mx-auto mx-lg-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleMyArticles" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                </div>
+                            </nav>
+                            <div class="collapse" id="navbarToggleMyArticles">
+                                <div class="bg-dark text-white p-4">
+                                    <div class="d-grid gap-2 d-block">
+                                        {% for article in app.user.articlesAuthor %}
+                                            <a class="btn btn-dark-custom my-2" href="{{ path('app_article_view', {'slug': article.slug}) }}">
+                                                {{ article.title }}
+                                            </a>
+                                        {% else %}
+                                            Pas d'articles enregisté
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {# My categories block #}
+                        <div class="mb-3">
+                            <nav class="navbar rounded navbar-light bg-light shadows-custom">
+                                <div class="container-fluid">
+                                    <h5 class="mx-auto">
+                                        Mes catégories
+                                    </h5>
+                                    <button class="navbar-toggler mx-auto mx-lg-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleMyCategories" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                </div>
+                            </nav>
+                            <div class="collapse" id="navbarToggleMyCategories">
+                                <div class="bg-dark text-white p-4">
+                                    <div class="d-grid gap-2 d-block">
+                                        {% for category in app.user.categoriesAuthor %}
+                                            <a class="btn btn-dark-custom my-2" href="{{ path('app_category_view', {'slug': category.slug}) }}">
+                                                {{ category.title }}
+                                            </a>
+                                        {% else %}
+                                            Pas de categories enregisté
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
+            </div>
         </div>
-    </div>
+    </section>
 {% endblock %}

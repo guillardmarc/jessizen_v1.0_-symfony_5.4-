@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WebsitesUpdates{% endblock %}
+
+{% block body %}
+    <h1>WebsitesUpdates</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ websites_update.id }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ websites_update.createdAt ? websites_update.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ModifiedAt</th>
+                <td>{{ websites_update.modifiedAt ? websites_update.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ websites_update.title }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ websites_update.date ? websites_update.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>MoreInfo</th>
+                <td>{{ websites_update.moreInfo }}</td>
+            </tr>
+            <tr>
+                <th>UnderVersion</th>
+                <td>{{ websites_update.underVersion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_websites_updates_index') }}">back to list</a>
+
+    <a href="{{ path('app_websites_updates_edit', {'id': websites_update.id}) }}">edit</a>
+
+    {{ include('websites_updates/_delete_form.html.twig') }}
+{% endblock %}

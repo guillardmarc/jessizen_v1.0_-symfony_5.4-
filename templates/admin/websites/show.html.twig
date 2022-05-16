@@ -1,0 +1,128 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}/Information site {{ website.logoText }}{% endblock %}
+
+{% block header %}
+    <header class="bg-glass">
+        <div class="container">
+            <div class="vh-20 d-flex flex-column flex-lg-row align-items-center justify-content-evenly">
+                <h1 class="display-1">
+                    Information site {{ website.logoText }}
+                </h1>
+                <div class="btn-group">
+                    <a href="{{ path('app_websites_index') }}" class="btn btn-outline-secondary-custom" title="Retour vers la liste des articles">
+                        <i class="bi bi-list-ul"></i>
+                    </a>
+                    <a href="{{ path('app_websites_edit', {'id': website.id}) }}" class="btn btn-outline-warning" title="Modifier l'article">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    {{ include('admin/websites/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section class="my-5 p-3 bg-glass">
+        <table class="table table-sm table-striped">
+            <tbody>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <td>
+                        {{ website.id }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Date de création
+                    </th>
+                    <td>{{ website.createdAt ? website.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        Date de modification
+                    </th>
+                    <td>
+                        {{ website.modifiedAt ? website.modifiedAt|date('Y-m-d H:i:s') : '' }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Texte logo
+                    </th>
+                    <td>
+                        
+                        {{ website.logoText }}
+                    </td>
+                </tr>
+                {% if website.logoPictureLink %}
+                    <tr>
+                        <th>
+                            Image logo
+                        </th>
+                        <td>
+                            Alt: {{ website.logoPictureAlt }}
+                            <br>
+                            Nom: {{ website.logoPictureName }}
+                            <br>
+                            <img class="img-fluid" src="{{ asset(website.logoPictureLink) }}" alt="">
+                        </td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <th>
+                        Copyright
+                    </th>
+                    <td>
+                        {{ website.copyright|raw }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Règlement
+                    </th>
+                    <td>
+                        {{ website.regulation|raw }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Version
+                    </th>
+                    <td>
+                        {{ website.version }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Text de presentatition
+                    </th>
+                    <td>
+                        {{ website.presentationText|raw }}
+                    </td>
+                </tr>
+                {% if website.presentationPictureLink %}
+                    <tr>
+                        <th>
+                            Image de présentation
+                        </th>
+                            <td>
+                            Alt: {{ website.presentationPictureAlt }}
+                            <br>
+                            Nom: {{ website.presentationPictureName }}
+                            <br>
+                            <img class="img-fluid" src="{{ asset(website.presentationPictureLink) }}" alt="">
+                        </td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <th>PublicationDate</th>
+                    <td>{{ website.publicationDate ? website.publicationDate|date('Y-m-d') : '' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

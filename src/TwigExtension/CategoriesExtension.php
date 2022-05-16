@@ -3,6 +3,7 @@
 namespace App\TwigExtension;
 
 use App\Entity\Categories;
+use App\Repository\CategoriesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -11,9 +12,10 @@ class CategoriesExtension extends AbstractExtension
 {
     private $em;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em,CategoriesRepository $categoriesRepository)
     {
         $this->em = $em;
+        //$this->categoriesRepository = $categoriesRepository;
     }
 
     public function getFunctions()
@@ -25,6 +27,7 @@ class CategoriesExtension extends AbstractExtension
 
     public function getCategories()
     {
-        return $this->em->getRepository(Categories::class)->findAll([],['name'=>'ASC']);
+        return $this->em->getRepository(Categories::class)->findAll();
+        // return $this->categoriesRepository->categoryArticlesNotNull();
     }
 }

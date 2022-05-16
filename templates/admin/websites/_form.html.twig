@@ -1,0 +1,72 @@
+{{ form_start(form) }}
+    <p class="text-center bg-warning fs-5 fw-bolder">
+        Les champs signaler par une étoile sont oblicatoire
+    </p>
+    <div class="mb-3">
+        {{ form_row(form.logoText) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.logoPicture) }}
+        {% if app.request.attributes.get('_route') == 'app_websites_edit' %}
+            {% if website.logoPictureLink %}
+                <h5>
+                    Image logo actuel
+                </h5>
+                <div class="d-flex align-items-center justify-content-evenly">
+                    <div class="position-relative">
+                        <img src="{{ asset(website.logoPictureLink) }}" class="img-square-vh-20">
+                        <a class="position-absolute top-0 start-0 btn btn-danger rounded-circle" title="Supprimé l'image"  href="{{ path('app_websites_picture_logo_delete', {id: website.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ website.id )}}">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-lg-4 mb-3">
+            {{ form_row(form.owner) }}
+        </div>
+        <div class="col-lg-4 mb-3">
+            {{ form_row(form.developper) }}
+        </div>
+        <div class="col-lg-4 mb-3">
+            {{ form_row(form.version) }}
+        </div>
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.copyright) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.regulation) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.presentationText) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.presentationPicture) }}
+        {% if app.request.attributes.get('_route') == 'app_websites_edit' %}
+            {% if website.presentationPictureLink %}
+                <h5>
+                    Image de présentation actuel
+                </h5>
+                <div class="d-flex align-items-center justify-content-evenly">
+                    <div class="position-relative">
+                        <img src="{{ asset(website.presentationPictureLink) }}" class="img-square-vh-20">
+                        <a class="position-absolute top-0 start-0 btn btn-danger rounded-circle" title="Supprimé l'image"  href="{{ path('app_websites_picture_presentation_delete', {id: website.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ website.id )}}">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.publicationDate) }}
+    </div>
+    <div class="d-grid col-lg-4 mx-auto mt-3">
+        <button class="btn btn-dark-custom rounded-pill" type="submit">
+            {{ button_label|default('Créer') }}
+        </button>
+    </div>
+{{ form_end(form) }}

@@ -3,15 +3,20 @@
 namespace App\Controller\User;
 
 use App\Entity\Articles;
+use App\Entity\ArticlesComments;
+use App\Form\CommentType;
 use App\Form\NoteType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
-* @Route(name="app_article_")
+* @Route("/user", name="app_article_")
+* @IsGranted("ROLE_USER")
 */
 
 class ArticleController extends AbstractController
@@ -23,6 +28,24 @@ class ArticleController extends AbstractController
     {
         $form = $this->createForm(NoteType::class, $article);
         $form ->handleRequest($request);
+
+        $comment = new ArticlesComments();
+        $formComment = $this->createForm(CommentType::class, $comment);
+        $formComment->handleRequest($request);
+
+        if ($formComment->isSubmitted() && $formComment->isValid()) {
+            $user= $this->getUser();
+            $comment->setCreatedAt(new DateTime())
+                    ->setModifiedAt(new DateTime())
+                    ->setAuthor($user)
+                    ->setArticles($article);
+            $entityManagerInterface->persist($comment);
+            $entityManagerInterface->flush();
+
+            $this->addFlash('success', 'Vote commentaire a bien été pris en compte');
+            return $this->redirectToRoute('app_article_view',['slug' => $article->getSlug()]);
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $noteForm = $form->get('note')->getData();
             if (is_numeric($noteForm)) {
@@ -33,10 +56,7 @@ class ArticleController extends AbstractController
                 $entityManagerInterface->flush();
 
                 $this->addFlash('success', 'Vote note a bien été pris en compte');
-                return $this->render('user/article/view.html.twig', [
-                    'article' => $article,
-                    'noteForm'=> $form->createView(),
-                ]);
+                return $this->redirectToRoute('app_article_view',['slug' => $article->getSlug()]);
             }
         }
         else {
@@ -49,6 +69,7 @@ class ArticleController extends AbstractController
         return $this->render('user/article/view.html.twig', [
             'article' => $article,
             'noteForm'=> $form->createView(),
+            'commentForm'=> $formComment->createView(),
         ]);
     }
 

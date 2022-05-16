@@ -1,0 +1,8 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="d-grid col-lg-4 mx-auto mt-3">
+        <button class="btn btn-dark-custom rounded-pill" type="submit">
+            {{ button_label|default('Création') }}
+        </button>
+    </div>
+{{ form_end(form) }}

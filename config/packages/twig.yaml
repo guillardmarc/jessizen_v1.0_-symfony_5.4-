@@ -5,7 +5,7 @@ twig:
     globals:
         articles: '@App\TwigExtension\ArticlesExtension'
         categories: '@App\TwigExtension\CategoriesExtension'
-        website: '@App\TwigExtension\WebsitesExtension'
+        websitetwig: '@App\TwigExtension\WebsitesExtension'
 
 when@test:
     twig:

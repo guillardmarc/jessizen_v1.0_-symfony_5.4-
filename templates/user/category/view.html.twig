@@ -4,25 +4,31 @@
 
 {% block header %}
     {# Présentation catégorie block #}
-    <header style="background: linear-gradient(90deg,rgba(244, 148, 139, 0.4), rgba(4, 101, 130, 0.8)), center / cover no-repeat url('{{ category.pictureLink }}')">
+    <header {% if category.pictureLink %}style="background: linear-gradient(90deg,rgba(244, 148, 139, 0.4), rgba(4, 101, 130, 0.8)), center / cover no-repeat url('{{ category.pictureLink }}')"{% else %} class="bg-glass"{% endif %}>
         <div class="container">
             <div class="vh-60 d-flex flex-column align-items-center justify-content-center">
                 <h1 class="display-1">
                     {{ category.title }}
-                    {% if is_granted("ROLE_USER") %}
-                        {% for favories in category.favories %}
-                            {% if favories.id == app.user.id %}
-                                <a class="text-danger" href="{{ path('app_category_deletfavory', {'slug': category.slug}) }}" title="Supprimer de vos categories favories">
-                                    <i class="bi bi-heart-fill fs-6 align-top"></i>
+                    {% set counter = 0 %}
+                    {% for article in articlesSortByDateForCategory %}
+                        {% set counter = counter+ 1 %}
+                    {% endfor %}
+                    {% if counter >= 1 %}
+                        {% if is_granted("ROLE_USER") %}
+                            {% for favories in category.favories %}
+                                {% if favories.id == app.user.id %}
+                                    <a class="text-danger" href="{{ path('app_category_deletfavory', {'slug': category.slug}) }}" title="Supprimer de vos categories favories">
+                                        <i class="bi bi-heart-fill fs-6 align-top"></i>
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                <a class="text-danger" href="{{ path('app_category_addfavory', {'slug': category.slug}) }}" title="Ajouter à vos categories favories">
+                                    <i class="bi bi-heart fs-6 align-top"></i>
                                 </a>
-                            {% endif %}
+                            {% endfor %}
                         {% else %}
-                            <a class="text-danger" href="{{ path('app_category_addfavory', {'slug': category.slug}) }}" title="Ajouter à vos categories favories">
-                                <i class="bi bi-heart fs-6 align-top"></i>
-                            </a>
-                        {% endfor %}
-                    {% else %}
-                        <i class="bi bi-heart fs-6 align-top"></i>
+                            <i class="bi bi-heart fs-6 align-top"></i>
+                        {% endif %}
                     {% endif %}
                 </h1>
                 {% if category.moreInfo %}
@@ -35,164 +41,174 @@
 {% endblock %}
 
 {% block body %}
-    {# Last five articles publied block #}
-    <section class="py-5" id="lastFiveArticlesForCategory">
-        <h3>
-            Les cinq derniers articles publiés.
+    {% set counter = 0 %}
+    {% for article in articlesSortByDateForCategory %}
+        {% set counter = counter+ 1 %}
+    {% endfor %}
+    {% if counter <1 %}
+        <h3 class="my-5">
+            Pas d'articles pour cette catégories
         </h3>
-        <hr class="my-4 mx-5">
-        <div class="container-fluid">
-            <div class="row align-items-center justify-content-center">
-                {% for article in lastFiveArticlesForCategory %}
-                    <div class="col-lg-4 mb-3">
-                        <a class="card bg-dark-custom text-black form-01 shadows-custom" href="{{ path('app_article_view', {'slug':article.slug})}}" title="Cliquer ici pour consulter l'article">
-                            <img src="{{ article.picture_top_link }}" class="img-square-vh-40" alt="{{ article.picture_top_alt }}">
-                            <div class="card-img-overlay bg-glass d-flex flex-column align-items-center justify-content-evenly">
-                                <h5 class="card-title text-center">
-                                    {{ article.title }}
-                                </h5>
-                                <p class="card-text">
-                                    {{ article.content|striptags|u.truncate(200,'...')}}
-                                </p>
-                                <p class="card-text text-center small">
-                                    <span class="me-3">
-                                        <i class="bi bi-eye"></i>
-                                        {{ article.view_number }}
-                                    </span>
-                                    <span class="me-3">
-                                        <i class="bi bi-bar-chart"></i>
-                                        {{ article.note }}
-                                    </span>
-                                    <span class="me-3">
-                                        <i class="bi bi-calendar3"></i>
-                                        {{ article.publication_date|date("d/m/Y") }}
-                                    </span>
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
+    {% else %}
+        {# Last five articles publied block #}
+        <section class="py-5" id="lastFiveArticlesForCategory">
+            <h3>
+                Les cinq derniers articles publiés.
+            </h3>
+            <hr class="my-4 mx-5">
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-center">
+                    {% for article in lastFiveArticlesForCategory %}
+                        <div class="col-lg-4 mb-3">
+                            <a class="card bg-dark-custom text-black form-01 shadows-custom" href="{{ path('app_article_view', {'slug':article.slug})}}" title="Cliquer ici pour consulter l'article">
+                                <img src="{{ article.picture_top_link }}" class="img-square-vh-40" alt="{{ article.picture_top_alt }}">
+                                <div class="card-img-overlay bg-glass d-flex flex-column align-items-center justify-content-evenly">
+                                    <h5 class="card-title text-center">
+                                        {{ article.title }}
+                                    </h5>
+                                    <p class="card-text">
+                                        {{ article.content|striptags|u.truncate(200,'...')}}
+                                    </p>
+                                    <p class="card-text text-center small">
+                                        <span class="me-3">
+                                            <i class="bi bi-eye"></i>
+                                            {{ article.view_number }}
+                                        </span>
+                                        <span class="me-3">
+                                            <i class="bi bi-bar-chart"></i>
+                                            {{ article.note }}
+                                        </span>
+                                        <span class="me-3">
+                                            <i class="bi bi-calendar3"></i>
+                                            {{ article.publication_date|date("d/m/Y") }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    </section>
-    {# Three Best Rated Articles Publied block #}
-    <section class="py-5" id="threeBestRatedArticlesForCategory">
-        <h3>
-            Les trois articles publiés les mieux notés.
-        </h3>
-        <hr class="my-4 mx-5">
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                {% for article in threeBestRatedArticlesForCategory %}
-                    <div class="col-lg-4 mb-3">
-                        <a class="card bg-dark-custom text-black form-01 shadows-custom" href="{{ path('app_article_view', {'slug':article.slug})}}" title="Cliquer ici pour consulter l'article">
-                            <img src="{{ article.picture_top_link }}" class="img-square-vh-40" alt="{{ article.picture_top_alt }}">
-                            <div class="card-img-overlay bg-glass d-flex flex-column align-items-center justify-content-evenly">
-                                <h5 class="card-title text-center">
-                                    {{ article.title }}
-                                </h5>
-                                <p class="card-text">
-                                    {{ article.content|striptags|u.truncate(200,'...')}}
-                                </p>
-                                <p class="card-text text-center small">
-                                    <span class="me-3">
-                                        <i class="bi bi-eye"></i>
-                                        {{ article.view_number }}
-                                    </span>
-                                    <span class="me-3">
-                                        <i class="bi bi-bar-chart"></i>
-                                        {{ article.note }}
-                                    </span>
-                                    <span class="me-3">
-                                        <i class="bi bi-calendar3"></i>
-                                        {{ article.publication_date|date("d/m/Y") }}
-                                    </span>
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
+        </section>
+        {# Three Best Rated Articles Publied block #}
+        <section class="py-5" id="threeBestRatedArticlesForCategory">
+            <h3>
+                Les trois articles publiés les mieux notés.
+            </h3>
+            <hr class="my-4 mx-5">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    {% for article in threeBestRatedArticlesForCategory %}
+                        <div class="col-lg-4 mb-3">
+                            <a class="card bg-dark-custom text-black form-01 shadows-custom" href="{{ path('app_article_view', {'slug':article.slug})}}" title="Cliquer ici pour consulter l'article">
+                                <img src="{{ article.picture_top_link }}" class="img-square-vh-40" alt="{{ article.picture_top_alt }}">
+                                <div class="card-img-overlay bg-glass d-flex flex-column align-items-center justify-content-evenly">
+                                    <h5 class="card-title text-center">
+                                        {{ article.title }}
+                                    </h5>
+                                    <p class="card-text">
+                                        {{ article.content|striptags|u.truncate(200,'...')}}
+                                    </p>
+                                    <p class="card-text text-center small">
+                                        <span class="me-3">
+                                            <i class="bi bi-eye"></i>
+                                            {{ article.view_number }}
+                                        </span>
+                                        <span class="me-3">
+                                            <i class="bi bi-bar-chart"></i>
+                                            {{ article.note }}
+                                        </span>
+                                        <span class="me-3">
+                                            <i class="bi bi-calendar3"></i>
+                                            {{ article.publication_date|date("d/m/Y") }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    </section>
-    {# Five most viewed articles apublied block #}
-    <section class="py-5" id="fiveMostViewedArticlesForCategory">
-        <h3>
-            Les cinq articles publiés les plus vues.
-        </h3>
-        <hr class="my-4 mx-5">
-        <div class="container-fluid">
-            <div class="row align-items-center justify-content-center">
-                {% for article in fiveMostViewedArticlesForCategory %}
-                    <div class="col-lg-4 mb-3">
-                        <a class="card bg-dark-custom text-black form-01 shadows-custom" href="{{ path('app_article_view', {'slug':article.slug})}}" title="Cliquer ici pour consulter l'article">
-                            <img src="{{ article.picture_top_link }}" class="img-square-vh-40" alt="{{ article.picture_top_alt }}">
-                            <div class="card-img-overlay bg-glass d-flex flex-column align-items-center justify-content-evenly">
-                                <h5 class="card-title text-center">
-                                    {{ article.title }}
-                                </h5>
-                                <p class="card-text">
-                                    {{ article.content|striptags|u.truncate(200,'...')}}
-                                </p>
-                                <p class="card-text text-center small">
-                                    <span class="me-3">
-                                        <i class="bi bi-eye"></i>
-                                        {{ article.view_number }}
-                                    </span>
-                                    <span class="me-3">
-                                        <i class="bi bi-bar-chart"></i>
-                                        {{ article.note }}
-                                    </span>
-                                    <span class="me-3">
-                                        <i class="bi bi-calendar3"></i>
-                                        {{ article.publication_date|date("d/m/Y") }}
-                                    </span>
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
+        </section>
+        {# Five most viewed articles apublied block #}
+        <section class="py-5" id="fiveMostViewedArticlesForCategory">
+            <h3>
+                Les cinq articles publiés les plus vues.
+            </h3>
+            <hr class="my-4 mx-5">
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-center">
+                    {% for article in fiveMostViewedArticlesForCategory %}
+                        <div class="col-lg-4 mb-3">
+                            <a class="card bg-dark-custom text-black form-01 shadows-custom" href="{{ path('app_article_view', {'slug':article.slug})}}" title="Cliquer ici pour consulter l'article">
+                                <img src="{{ article.picture_top_link }}" class="img-square-vh-40" alt="{{ article.picture_top_alt }}">
+                                <div class="card-img-overlay bg-glass d-flex flex-column align-items-center justify-content-evenly">
+                                    <h5 class="card-title text-center">
+                                        {{ article.title }}
+                                    </h5>
+                                    <p class="card-text">
+                                        {{ article.content|striptags|u.truncate(200,'...')}}
+                                    </p>
+                                    <p class="card-text text-center small">
+                                        <span class="me-3">
+                                            <i class="bi bi-eye"></i>
+                                            {{ article.view_number }}
+                                        </span>
+                                        <span class="me-3">
+                                            <i class="bi bi-bar-chart"></i>
+                                            {{ article.note }}
+                                        </span>
+                                        <span class="me-3">
+                                            <i class="bi bi-calendar3"></i>
+                                            {{ article.publication_date|date("d/m/Y") }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    </section>
-    {# Articles sort by date for category block #}
-    <section class="py-5">
-        <h3>
-            Tous les l'articles de la catégorie.
-        </h3>
-        <hr class="my-4 mx-5">
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                {% for article in articlesSortByDateForCategory %}
-                    <div class="col-lg-4 mb-3">
-                        <a class="card bg-dark-custom text-black form-01 shadows-custom" href="{{ path('app_article_view', {'slug':article.slug})}}" title="Cliquer ici pour consulter l'article">
-                            <img src="{{ article.picture_top_link }}" class="img-square-vh-40" alt="{{ article.picture_top_alt }}">
-                            <div class="card-img-overlay bg-glass d-flex flex-column align-items-center justify-content-evenly">
-                                <h5 class="card-title text-center">
-                                    {{ article.title }}
-                                </h5>
-                                <p class="card-text">
-                                    {{ article.content|striptags|u.truncate(200,'...')}}
-                                </p>
-                                <p class="card-text text-center small">
-                                    <span class="me-3">
-                                        <i class="bi bi-eye"></i>
-                                        {{ article.view_number }}
-                                    </span>
-                                    <span class="me-3">
-                                        <i class="bi bi-bar-chart"></i>
-                                        {{ article.note }}
-                                    </span>
-                                    <span class="me-3">
-                                        <i class="bi bi-calendar3"></i>
-                                        {{ article.publication_date|date("d/m/Y") }}
-                                    </span>
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
+        </section>
+        {# Articles sort by date for category block #}
+        <section class="py-5">
+            <h3>
+                Tous les l'articles de la catégorie.
+            </h3>
+            <hr class="my-4 mx-5">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    {% for article in articlesSortByDateForCategory %}
+                        <div class="col-lg-4 mb-3">
+                            <a class="card bg-dark-custom text-black form-01 shadows-custom" href="{{ path('app_article_view', {'slug':article.slug})}}" title="Cliquer ici pour consulter l'article">
+                                <img src="{{ article.picture_top_link }}" class="img-square-vh-40" alt="{{ article.picture_top_alt }}">
+                                <div class="card-img-overlay bg-glass d-flex flex-column align-items-center justify-content-evenly">
+                                    <h5 class="card-title text-center">
+                                        {{ article.title }}
+                                    </h5>
+                                    <p class="card-text">
+                                        {{ article.content|striptags|u.truncate(200,'...')}}
+                                    </p>
+                                    <p class="card-text text-center small">
+                                        <span class="me-3">
+                                            <i class="bi bi-eye"></i>
+                                            {{ article.view_number }}
+                                        </span>
+                                        <span class="me-3">
+                                            <i class="bi bi-bar-chart"></i>
+                                            {{ article.note }}
+                                        </span>
+                                        <span class="me-3">
+                                            <i class="bi bi-calendar3"></i>
+                                            {{ article.publication_date|date("d/m/Y") }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {% endif %}
 {% endblock %}

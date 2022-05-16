@@ -1,0 +1,78 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}/liste des catégories{% endblock %}
+
+{% block header %}
+    <header class="bg-glass">
+        <div class="container">
+            <div class="vh-20 d-flex flex-column flex-lg-row align-items-center justify-content-center">
+                <h1 class="display-1">
+                    Liste des catégories
+                </h1>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section class="my-5 p-3 bg-glass">
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Titre
+                    </th>
+                    <th>
+                        Plus d'info
+                    </th>
+                    <th>
+                        Image
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>
+                        {{ category.id }}
+                    </td>
+                    <td>
+                        {{ category.title }}
+                    </td>
+                    <td>
+                        {{ category.moreInfo|raw }}
+                    </td>
+                    <td>
+                        {% if category.pictureLink %}
+                            Alt : {{ category.pictureAlt }}
+                            <br>
+                            Nom : {{ category.pictureName }}
+                            <br>
+                            <img src="{{ asset(category.pictureLink) }}" class="img-square-vh-20" alt="">
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{{ path('app_categories_show', {'id': category.id}) }}" class="btn btn-outline-secondary-custom" title="Voir l'article">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{{ path('app_categories_edit', {'id': category.id}) }}" class="btn btn-outline-warning" title="Modifier l'article">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            {{ include('admin/categories/_delete_form.html.twig') }}
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Pas d'enregistrements</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

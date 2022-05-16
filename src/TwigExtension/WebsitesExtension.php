@@ -16,7 +16,7 @@ class WebsitesExtension extends AbstractExtension
     public function getFunctions()
     {
         return[
-            new TwigFunction('website',[$this,'getWebsite'])
+            new TwigFunction('websitetwig',[$this,'getWebsite'])
         ];
     }
 

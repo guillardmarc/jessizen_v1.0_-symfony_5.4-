@@ -8,7 +8,7 @@
         {# Title tag #}
         <title>JessiZen{% block title %}Welcome!{% endblock %}</title>
         {# Link tags #}
-        {% for website in website.getWebsite %}
+        {% for website in websitetwig.getWebsite %}
             <link rel="icon" href="{{ asset(website.logoPictureLink) }}">
         {% endfor %}
         {# Stylesheets webpack tag #}
@@ -37,7 +37,7 @@
     </head>
     <body class="dashboard">
         <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            {% for website in website.getWebsite %}
+            {% for website in websitetwig.getWebsite %}
                 <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="{{ path('app_home')}}">
                     {% if website.logoPictureLink %}
                         <img src="{{ asset(website.logoPictureLink) }}" alt="{{ website.logoPictureAlt }}"  width="30" height="30">
@@ -68,7 +68,7 @@
         <div class="container-fluid">
             <div class="row">
                 {# Nav block #}
-                <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse overflow-auto">
                     <div class="position-sticky pt-3">
                         <ul class="nav flex-column">
                             <li class="nav-item d-grid gap-2 col-11 mx-auto">
@@ -83,7 +83,7 @@
                             </li>
                         </ul>
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                            <span>Mes infos personnel</span>
+                            <span>Infos personnel</span>
                             <i class="bi bi-person-lines-fill fs-3"></i>
                         </h6>
                         <ul class="nav flex-column mb-2">
@@ -102,7 +102,7 @@
                             </li>
                         </ul>
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                            <span>Mes favories</span>
+                            <span>Favories</span>
                             <i class="bi bi-heart fs-3"></i>
                         </h6>
                         <ul class="nav flex-column mb-2">
@@ -117,11 +117,11 @@
                                 </a>
                             </li>
                         </ul>
-                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                            <span>Mes Article</span>
-                            <i class="bi bi-newspaper fs-3"></i>
-                        </h6>
                         {% if is_granted('ROLE_AUTHOR') %}
+                            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                <span>Article</span>
+                                <i class="bi bi-newspaper fs-3"></i>
+                            </h6>
                             <ul class="nav flex-column mb-2">
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('app_articles_new') }}">
@@ -135,6 +135,61 @@
                                         {% else %}
                                             Liste de mes articles
                                         {% endif %}
+                                    </a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                <span>Categories</span>
+                                <i class="bi bi-bookmark-star-fill fs-3"></i>
+                            </h6>
+                            <ul class="nav flex-column mb-2">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_categories_new') }}">
+                                        Créer une catégories
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_categories_index') }}">
+                                        Liste des catégories
+                                    </a>
+                                </li>
+                            </ul>
+                            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                <span>Site web</span>
+                                <i class="bi bi-globe fs-3"></i>
+                            </h6>
+                            <ul class="nav flex-column mb-2">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_websites_new') }}">
+                                        Créer une nouvelle information
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_websites_index') }}">
+                                        Liste des informations
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_websites_updates_new') }}">
+                                        Créer une nouvelle mise à jour
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_websites_updates_index') }}">
+                                        Liste des mise à jour
+                                    </a>
+                                </li>
+                            </ul>
+                            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                <span>Utilisateur</span>
+                                <i class="bi bi-people fs-3"></i>
+                            </h6>
+                            <ul class="nav flex-column mb-2">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_users_index')}}">
+                                        Liste des utilisateurs
                                     </a>
                                 </li>
                             </ul>

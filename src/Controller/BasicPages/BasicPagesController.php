@@ -27,6 +27,15 @@ class BasicPagesController extends AbstractController
     }
 
     /**
+     * @Route("/utilisateurs_bannis", name="banned")
+     */
+    public function banned(): Response
+    {
+        return $this->render('basic_pages/banned.html.twig', []);
+    }
+
+
+    /**
      * @Route("/Nous_contacter", name="contact_us", methods={"GET", "POST"})
      */
     public function contactUs (Request $request, WebsitesRepository $websitesRepository, MailerInterface $mailerInterface)
