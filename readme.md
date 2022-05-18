@@ -315,3 +315,6 @@
     1. Modification de la fonction "**deletWebsitesUpdates**" (Etat : Fait)
     1. Modification de la fonction "**showWebsitesUpdates**" (Etat : Fait)
     1. Réalisation des design des template (Etat : Fait)
+
+### Partie "Tarte au citron" (Dépôt GITHub : )
+1. Installation de "**Tarte au citron**" (Etat : Fait)

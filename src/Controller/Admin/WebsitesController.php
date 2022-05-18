@@ -17,6 +17,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route(name="app_websites_")
+ * @IsGranted("ROLE_ADMIN")
  */
 class WebsitesController extends AbstractController
 {
